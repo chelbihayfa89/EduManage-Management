@@ -1,30 +1,35 @@
-<div
-              class="position-relative overflow-hidden mb-4"
-              style="border-radius: 100%"
-            >
-              <img class="img-fluid w-100" src="assets/template/img/team-1.jpg" alt="" />
-              <div
-                class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute"
-              >
-                <a
-                  class="btn btn-outline-light text-center mr-2 px-0"
-                  style="width: 38px; height: 38px"
-                  href="#"
-                  ><i class="fab fa-twitter"></i
-                ></a>
-                <a
-                  class="btn btn-outline-light text-center mr-2 px-0"
-                  style="width: 38px; height: 38px"
-                  href="#"
-                  ><i class="fab fa-facebook-f"></i
-                ></a>
-                <a
-                  class="btn btn-outline-light text-center px-0"
-                  style="width: 38px; height: 38px"
-                  href="#"
-                  ><i class="fab fa-linkedin-in"></i
-                ></a>
-              </div>
-            </div>
-            <h4>Julia Smith</h4>
-            <i>Music Teacher</i>
+<div class="text-center">
+  <div
+    class="position-relative overflow-hidden mb-4 mx-auto"
+    style="border-radius: 100%; width: 200px; height: 200px;"
+  >
+    <img
+      class="img-fluid w-100 h-100"
+      src="assets/template/img/team-1.jpg"
+      alt=""
+      style="object-fit: cover; border-radius: 100%;"
+    />
+    <div
+      class="team-social d-flex align-items-center justify-content-center w-100 h-100 position-absolute"
+    >
+      <a
+        class="btn btn-outline-light text-center mr-2 px-0"
+        style="width: 38px; height: 38px"
+        href="#"
+        ><i class="fab fa-twitter"></i></a>
+      <a
+        class="btn btn-outline-light text-center mr-2 px-0"
+        style="width: 38px; height: 38px"
+        href="#"
+        ><i class="fab fa-facebook-f"></i></a>
+      <a
+        class="btn btn-outline-light text-center px-0"
+        style="width: 38px; height: 38px"
+        href="#"
+        ><i class="fab fa-linkedin-in"></i></a>
+    </div>
+  </div>
+
+  <h4 class="mt-2 mb-1">{{ t.firstName }} {{ t.lastName }}</h4>
+  <i class="text-muted">{{ t.email }}</i>
+</div>

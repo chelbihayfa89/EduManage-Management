@@ -1,10 +1,14 @@
 
     <!-- Navbar Start -->
-    <app-navbar></app-navbar>
+    <div *ngIf="!isAdminDashboard() && !isTeacherDashboard() && !isStudentDashboard() && !isParentDashboard()">
+        <app-navbar></app-navbar>
+    </div>
     <!-- Navbar End -->
     <router-outlet></router-outlet>
     <!-- Footer Start -->
-    <app-footer></app-footer>
+    <div *ngIf="!isAdminDashboard() && !isTeacherDashboard() && !isStudentDashboard() && !isParentDashboard()">
+        <app-footer></app-footer>
+    </div>
     <!-- Footer End -->
 
     <!-- Back to Top -->

@@ -1,3 +1,6 @@
+<div *ngIf="showBanner">
+  <app-banner [t]="title"></app-banner>
+</div>
 <div class="container-fluid pt-5">
       <div class="container">
         <div class="text-center pb-2">
@@ -7,17 +10,8 @@
           <h1 class="mb-4">Meet Our Teachers</h1>
         </div>
         <div class="row">
-          <div class="col-md-6 col-lg-3 text-center team mb-5">
-            <app-teacher-card></app-teacher-card>
-          </div>
-          <div class="col-md-6 col-lg-3 text-center team mb-5">
-            <app-teacher-card></app-teacher-card>
-          </div>
-          <div class="col-md-6 col-lg-3 text-center team mb-5">
-            <app-teacher-card></app-teacher-card>
-          </div>
-          <div class="col-md-6 col-lg-3 text-center team mb-5">
-            <app-teacher-card></app-teacher-card>
+          <div class="col-md-6 col-lg-3 text-center team mb-5" *ngFor="let teacher of teachers">
+             <app-teacher-card [t]="teacher"></app-teacher-card>
           </div>
         </div>
       </div>

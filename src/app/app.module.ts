@@ -21,7 +21,11 @@ import { HomeComponent } from './components/home/home/home.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { AdminDashboardComponent } from './components/admin/admin-dashboard/admin-dashboard.component';
-import { TestComponent } from './components/test/test.component';
+import { BannerComponent } from './components/shared/banner/banner.component';
+import { AdminProfileComponent } from './components/admin/admin-profile/admin-profile.component';
+import { UserProfileComponent } from './components/admin/user-profile/user-profile.component';
+import { TeacherDashboardComponent } from './components/teacher/teacher-dashboard/teacher-dashboard.component';
+import { CourseInfoComponent } from './components/shared/course-info/course-info.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +48,11 @@ import { TestComponent } from './components/test/test.component';
     NotFoundComponent,
     LoginComponent,
     AdminDashboardComponent,
-    TestComponent
+    BannerComponent,
+    AdminProfileComponent,
+    UserProfileComponent,
+    TeacherDashboardComponent,
+    CourseInfoComponent
   ],
   imports: [
     BrowserModule,

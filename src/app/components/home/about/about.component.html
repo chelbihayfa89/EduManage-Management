@@ -1,47 +1,45 @@
+<div *ngIf="showBanner">
+  <app-banner [t]="title"></app-banner>
+</div>
 <div class="container-fluid py-5">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-5">
-            <img
-              class="img-fluid rounded mb-5 mb-lg-0"
-              src="assets/template/img/about-1.jpg"
-              alt=""
-            />
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-5">
+        <img
+          class="img-fluid rounded mb-5 mb-lg-0"
+          src="assets/template/img/about-1.jpg"
+          alt="Modern school environment"
+          style="width: 400px; height: 500px;"
+        />
+      </div>
+      <div class="col-lg-7">
+        <p class="section-title pr-5">
+          <span class="pr-2">Who We Are</span>
+        </p>
+        <h1 class="mb-4">A Smart Platform for Private School Management</h1>
+        <p>
+          Our mission is to provide a simple and efficient digital space where school administrators, teachers, students, and parents can interact and collaborate. Through a personalized dashboard for each role, we make daily school life easier and more organized.
+        </p>
+        <div class="row pt-2 pb-4">
+          <div class="col-6 col-md-4">
+            <img class="img-fluid rounded" src="assets/template/img/about-2.jpg" alt="Teacher dashboard" />
           </div>
-          <div class="col-lg-7">
-            <p class="section-title pr-5">
-              <span class="pr-2">Learn About Us</span>
-            </p>
-            <h1 class="mb-4">Best School For Your Kids</h1>
-            <p>
-              Invidunt lorem justo sanctus clita. Erat lorem labore ea, justo
-              dolor lorem ipsum ut sed eos, ipsum et dolor kasd sit ea justo.
-              Erat justo sed sed diam. Ea et erat ut sed diam sea ipsum est
-              dolor
-            </p>
-            <div class="row pt-2 pb-4">
-              <div class="col-6 col-md-4">
-                <img class="img-fluid rounded" src="assets/template/img/about-2.jpg" alt="" />
-              </div>
-              <div class="col-6 col-md-8">
-                <ul class="list-inline m-0">
-                  <li class="py-2 border-top border-bottom">
-                    <i class="fa fa-check text-primary mr-3"></i>Labore eos amet
-                    dolor amet diam
-                  </li>
-                  <li class="py-2 border-bottom">
-                    <i class="fa fa-check text-primary mr-3"></i>Etsea et sit
-                    dolor amet ipsum
-                  </li>
-                  <li class="py-2 border-bottom">
-                    <i class="fa fa-check text-primary mr-3"></i>Diam dolor diam
-                    elitripsum vero.
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <a href="" class="btn btn-primary mt-2 py-2 px-4">Learn More</a>
+          <div class="col-6 col-md-8">
+            <ul class="list-inline m-0">
+              <li class="py-2 border-top border-bottom">
+                <i class="fa fa-check text-primary mr-3"></i>Admins manage users, courses, and validations
+              </li>
+              <li class="py-2 border-bottom">
+                <i class="fa fa-check text-primary mr-3"></i>Teachers handle their courses and evaluations
+              </li>
+              <li class="py-2 border-bottom">
+                <i class="fa fa-check text-primary mr-3"></i>Students and parents follow academic progress
+              </li>
+            </ul>
           </div>
         </div>
+        <a href="#" class="btn btn-primary mt-2 py-2 px-4">Explore Features</a>
       </div>
     </div>
+  </div>
+</div>
