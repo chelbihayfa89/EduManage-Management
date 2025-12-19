@@ -1,0 +1,104 @@
+.side { 
+  position: fixed;
+  top: 0;
+  left: 0;
+  min-width: 220px;
+  height: 100vh;
+  z-index: 100;
+  background-color: #f8f9fa;
+  overflow-y: auto; /* scroll si sidebar trop longue */
+}
+
+.navitem {
+  list-style-type: none;
+  padding-left: 0; 
+}
+
+ul li a,
+.log-out span {
+  text-decoration: none;
+  font-size: 20px;
+  color: #5a5a5a;
+  width: 100%;
+  display: block;
+  padding: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+ul li a:hover {
+  color: #fff;
+  background-color: rgba(23, 162, 184, 0.9);
+  border-radius: 8px;
+}
+
+ul li a:hover i {
+  color: #fff !important;
+}
+
+h3 {
+  font-weight: 700;
+  font-size: 1.5rem; 
+  color: #17a2b8;
+}
+
+.log-out i {
+  font-size: 20px;
+}
+
+.log-out:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.log-out:hover i {
+  color: #dc3545 !important;
+}
+
+.side-gap {
+  gap: 10px;
+}
+
+.d-flex.align-items-center img {
+  margin-right: 12px;
+}
+
+.main {
+  margin-left: 220px;
+}
+
+.active {
+  color: #fff !important;
+  background-color: rgba(23, 162, 184, 0.9);
+  border-radius: 8px;
+}
+
+.active i {
+  color: #fff !important;
+}
+
+/* Responsive (exemple simple) */
+@media (max-width: 768px) {
+  .side {
+    position: relative;
+    width: 100%;
+    height: auto;
+  }
+  .main {
+    margin-left: 0;
+  }
+}
+
+.side-gap i {
+  margin-right: 6px;
+}
+
+.navitem li a {
+  align-items: center;
+  padding: 8px 12px;
+}
+
+.navitem i {
+  width: 20px;
+  text-align: center;
+}
