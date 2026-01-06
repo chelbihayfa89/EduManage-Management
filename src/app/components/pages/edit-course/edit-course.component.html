@@ -1,0 +1,105 @@
+<div *ngIf="showBanner">
+    <app-banner [t]="title"></app-banner>
+</div>
+<div class="container-fluid pt-5">
+  <div class="container">
+    <div class="text-center pb-2">
+      <p class="section-title px-5">
+        <span class="px-2">Edit Details</span>
+      </p>
+      <h1 class="mb-4">Fill in Course Details</h1>
+    </div>
+    <div class="row d-flex justify-content-center">
+      <div class="col-lg-7 mb-5">
+        <div class="contact-form">
+          <div id="success"></div>
+          <form
+            name="editCourseForm"
+            #editCourseForm="ngForm"
+            (ngSubmit)="editCourse(editCourseForm)"
+          >
+            <div class="control-group">
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                name="name"
+                [(ngModel)]="course.name"
+                #name="ngModel"
+                placeholder="Name"
+                required="required"
+                data-validation-required-message="Please enter course name"
+              />
+              <div *ngIf="name.invalid && (name.touched || name.dirty)">
+                <div
+                  *ngIf="name.errors?.['required']"
+                  class="text-danger mt-1 mb-2 d-block"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i
+                  >Course Name is Required!
+                </div>
+              </div>
+              <p class="help-block text-danger"></p>
+            </div>
+            <div class="control-group">
+              <input
+                type="text"
+                class="form-control"
+                id="desc"
+                name="desc"
+                #desc="ngModel"
+                [(ngModel)]="course.description"
+                placeholder="Description"
+                required="required"
+                data-validation-required-message="Please enter course description"
+              />
+              <div *ngIf="desc.invalid && (desc.touched || desc.dirty)">
+                <div
+                  *ngIf="desc.errors?.['required']"
+                  class="text-danger mt-1 mb-2 d-block"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i
+                  >Course Description is Required!
+                </div>
+              </div>
+              <p class="help-block text-danger"></p>
+            </div>
+            <div class="control-group">
+              <input
+                type="number"
+                class="form-control"
+                id="duration"
+                placeholder="Duration"
+                name="duration"
+                #duration="ngModel"
+                [(ngModel)]="course.duration"
+                required="required"
+                data-validation-required-message="Please enter course duration"
+              />
+              <div *ngIf="duration.invalid && (duration.touched || duration.dirty)">
+                <div
+                  *ngIf="duration.errors?.['required']"
+                  class="text-danger mt-1 mb-2 d-block"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i
+                  >Course Duration is Required!
+                </div>
+              </div>
+              <p class="help-block text-danger"></p>
+            </div>
+            <p class="help-block text-danger"></p>
+            <div>
+              <button
+                class="btn btn-primary mt-3 w-100"
+                type="submit"
+                id="sendMessageButton"
+              >
+                Edit Course
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,278 @@
+<app-banner [t]="title"></app-banner>
+
+<div class="container-fluid pt-5">
+  <div class="container">
+    <div class="text-center pb-2">
+      <p class="section-title px-5">
+        <span class="px-2">Create Your Account</span>
+      </p>
+      <h1 class="mb-4">Sign Up</h1>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-lg-6 mb-5">
+        <div class="contact-form">
+          <form [formGroup]="registerForm" (ngSubmit)="signup()">
+            <!-- First Name -->
+            <div class="control-group mb-2">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Your First Name"
+                formControlName="fname"
+              />
+              <div
+                *ngIf="f.fname.invalid && (f.fname.touched || f.fname.dirty)"
+              >
+                <small
+                  class="text-danger d-block"
+                  *ngIf="f.fname.errors?.['required']"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                  Please enter your firstname
+                </small>
+                <small
+                  class="text-danger d-block"
+                  *ngIf="f.fname.errors?.['minlength']"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                  Minimum 3 characters
+                </small>
+              </div>
+            </div>
+
+            <!-- Last Name -->
+            <div class="control-group mb-2">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Your Last Name"
+                formControlName="lname"
+              />
+              <div
+                *ngIf="f.lname.invalid && (f.lname.touched || f.lname.dirty)"
+              >
+                <small
+                  class="text-danger d-block"
+                  *ngIf="f.lname.errors?.['required']"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                  Please enter your lastname
+                </small>
+                <small
+                  class="text-danger d-block"
+                  *ngIf="f.lname.errors?.['minlength']"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                  Minimum 3 characters
+                </small>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="control-group mb-2">
+              <input
+                type="email"
+                class="form-control"
+                placeholder="Your Email"
+                formControlName="email"
+              />
+              <div
+                *ngIf="f.email.invalid && (f.email.touched || f.email.dirty)"
+              >
+                <small
+                  class="text-danger d-block"
+                  *ngIf="f.email.errors?.['required']"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                  Please enter your email
+                </small>
+                <small
+                  class="text-danger d-block"
+                  *ngIf="f.email.errors?.['email']"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                  Invalid email format
+                </small>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="control-group mb-2">
+              <input
+                type="tel"
+                class="form-control"
+                placeholder="Your Phone Number"
+                formControlName="tel"
+              />
+              <div *ngIf="f.tel.invalid && (f.tel.touched || f.tel.dirty)">
+                <small
+                  class="text-danger d-block"
+                  *ngIf="f.tel.errors?.['required']"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                  Please enter your phone
+                </small>
+                <small
+                  class="text-danger d-block"
+                  *ngIf="f.tel.errors?.['pattern']"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                  Only digits allowed
+                </small>
+                <small
+                  class="text-danger d-block"
+                  *ngIf="f.tel.errors?.['minlength']"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                  Minimum 8 digits
+                </small>
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="control-group mb-2">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Your Address"
+                formControlName="adr"
+              />
+              <div *ngIf="f.adr.invalid && (f.adr.touched || f.adr.dirty)">
+                <small
+                  class="text-danger d-block"
+                  *ngIf="f.adr.errors?.['required']"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                  Please enter your address
+                </small>
+                <small
+                  class="text-danger d-block"
+                  *ngIf="f.adr.errors?.['minlength']"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                  Minimum 3 characters
+                </small>
+              </div>
+            </div>
+
+            <!-- Password -->
+            <div class="control-group mb-2">
+              <input
+                type="password"
+                class="form-control"
+                placeholder="Your Password"
+                formControlName="password"
+              />
+              <div
+                *ngIf="
+                  f.password.invalid && (f.password.touched || f.password.dirty)
+                "
+              >
+                <small
+                  class="text-danger d-block"
+                  *ngIf="f.password.errors?.['required']"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                  Please enter your password
+                </small>
+                <small
+                  class="text-danger d-block"
+                  *ngIf="f.password.errors?.['pattern']"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                  Password must be 6–12 characters long and include only letters
+                  and numbers.
+                </small>
+              </div>
+            </div>
+
+            <!-- Parent Fields-->
+            <div *ngIf="role == 'parent'">
+              <div class="control-group mb-2">
+                <input
+                  type="tel"
+                  class="form-control"
+                  placeholder="Your child phone"
+                  formControlName="childTel"
+                />
+                <div
+                  *ngIf="
+                    f.childTel.invalid &&
+                    (f.childTel.touched || f.childTel.dirty)
+                  "
+                >
+                  <small
+                    class="text-danger d-block"
+                    *ngIf="f.childTel.errors?.['required']"
+                  >
+                    <i
+                      class="fas fa-exclamation-triangle text-warning mr-2"
+                    ></i>
+                    Please enter your child phone
+                  </small>
+                  <small
+                    class="text-danger d-block"
+                    *ngIf="f.childTel.errors?.['pattern']"
+                  >
+                    <i
+                      class="fas fa-exclamation-triangle text-warning mr-2"
+                    ></i>
+                    Only digits allowed
+                  </small>
+                  <small
+                    class="text-danger d-block"
+                    *ngIf="f.childTel.errors?.['minlength']"
+                  >
+                    <i
+                      class="fas fa-exclamation-triangle text-warning mr-2"
+                    ></i>
+                    Minimum 8 digits
+                  </small>
+                </div>
+              </div>
+            </div>
+
+            <!-- Teacher Fields -->
+            <div *ngIf="role == 'teacher'">
+              <div class="form-group">
+                <label for="speciality">Speciality</label>
+                <select
+                  id="speciality"
+                  class="form-control"
+                  formControlName="speciality"
+                >
+                  <option value="" disabled selected>Choose Speciality</option>
+                  <option></option>
+                  <option [value]="s" *ngFor="let s of specialities">
+                    {{ s }}
+                  </option>
+                </select>
+                <small
+                  *ngIf="
+                    f.speciality.invalid &&
+                    (f.speciality.touched || f.speciality.dirty)
+                  "
+                  class="text-danger d-block"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
+                  Please select speciality
+                </small>
+              </div>
+            </div>
+            <!-- Submit Button -->
+            <div class="text-center">
+              <button
+                type="submit"
+                class="btn btn-primary mt-3"
+                [disabled]="registerForm.invalid"
+              >
+                Sign Up
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
