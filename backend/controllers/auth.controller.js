@@ -13,9 +13,10 @@ const register = (req, res) => {
 };
 
 const login = (req, res) => {
-  const { tel, password } = req.body;
+  const { phone, password } = req.body;
+  console.log("REQ BODY =", req.body);
 
-  const user = users.find((u) => u.tel === tel && u.password === password);
+  const user = users.find((u) => u.phone === phone && u.password === password);
 
   if (!user) {
     return res

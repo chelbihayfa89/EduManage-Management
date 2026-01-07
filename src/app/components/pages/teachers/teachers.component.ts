@@ -1,6 +1,6 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { TeacherService } from 'src/app/services/teacher.service';
 
 @Component({
   selector: 'app-teachers',
@@ -9,22 +9,31 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TeachersComponent implements OnInit {
   title: string = 'Our Teachers';
+  url!: string;
+  speciality!: string;
   @Input() showBanner: boolean = true;
 
-  allTeachers: any = [];
   teachers!: any;
-  constructor(private ar: ActivatedRoute, private router: Router) {}
+  constructor(
+    private ar: ActivatedRoute,
+    private router: Router,
+    private teacherService: TeacherService
+  ) {}
 
   ngOnInit(): void {
-    // const url = this.router.url;
-    // const speciality = this.ar.snapshot.queryParamMap.get('speciality');
-
-    // if (url.startsWith('/search/teachers') && speciality) {
-    //   this.teachers = this.allTeachers.filter(
-    //     (t) => t.speciality === speciality
-    //   );
-    // } else {
-    //   this.teachers = this.allTeachers;
-    // }
+    this.url = this.router.url;
+    this.speciality = this.ar.snapshot.queryParamMap.get('speciality') || '';
+    console.log(this.url);
+    console.log(this.speciality);
+    if (this.url.startsWith('/teachers/search')) {
+      this.teacherService.getTeachers(this.speciality).subscribe((res) => {
+        console.log(res.teachers);
+        this.teachers = res.teachers;
+      });
+    } else {
+      this.teacherService.getTeachers().subscribe((res) => {
+        this.teachers = res.teachers;
+      });
+    }
   }
 }

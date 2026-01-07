@@ -5,12 +5,14 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class TeacherService {
-  private apiUrl = 'http://localhost:3000/teachers'; // URL de l'API
+  private apiUrl = 'http://localhost:3000/api/teachers'; // URL de l'API
 
   constructor(private http: HttpClient) {}
 
-  getTeachers() {
-    return this.http.get(this.apiUrl);
+  getTeachers(speciality?: string) {
+    return speciality
+      ? this.http.get<{teachers: any}>(`${this.apiUrl}?speciality=${speciality}`)
+      : this.http.get<{teachers: any}>(this.apiUrl);
   }
 
   getTeacherById(id: number) {
@@ -27,9 +29,5 @@ export class TeacherService {
 
   deleteTeacherById(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
-  }
-
-  searchTeacherBySpeciality(speciality: string) {
-    return this.http.get(`${this.apiUrl}/${speciality}`);
   }
 }

@@ -7,7 +7,7 @@ const users = [
     phone: "+123456789",
     role: "Admin",
     status: "Active",
-    detail: "Peut tout gérer"
+    password: "Abc123"
   },
   {
     id: 2,
@@ -17,7 +17,7 @@ const users = [
     phone: "+987654321",
     role: "Teacher",
     status: "Inactive",
-    detail: "Mathématiques"
+    password: "Passw0rd"
   },
   {
     id: 3,
@@ -27,7 +27,7 @@ const users = [
     phone: "+1122334455",
     role: "Student",
     status: "Active",
-    detail: "Classe 5A"
+    password: "User2024"
   },
   {
     id: 4,
@@ -37,7 +37,8 @@ const users = [
     phone: "+5566778899",
     role: "Parent",
     status: "Active",
-    detail: "Enfant: Charlie Dupont"
+    password: "Code99Dev"
+
   }
 ];
 

@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
     fname: ['', [Validators.required, Validators.minLength(3)]],
     lname: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
-    tel: [
+    phone: [
       '',
       [
         Validators.required,
@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
       '',
       [Validators.required, Validators.pattern('^[A-Za-z\\d]{6,12}$')],
     ],
-    childTel: [
+    childPhone: [
       '',
       [
         Validators.required,

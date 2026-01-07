@@ -1,1 +1,38 @@
-<p>search-teacher works!</p>
+<div *ngIf="showBanner">
+    <app-banner [t]="title"></app-banner>
+</div>
+<div class="container my-5">
+  <div class="row d-flex justify-content-center">
+    <div class="col-lg-5">
+      <div class="card border-0">
+        <div class="card-header bg-secondary text-center p-4">
+          <h1 class="text-white m-0">Find Your Teacher</h1>
+        </div>
+        <div class="card-body rounded-bottom bg-primary p-5">
+          <form #searchForm="ngForm" (ngSubmit)="searchTeacher()">
+            <select
+              name="speciality"
+              [(ngModel)]="criteria.speciality"
+              #speciality="ngModel"
+              required
+              class="form-select form-select-lg mb-3 w-100 py-2"
+            >
+              <option value="" selected>-- Select speciality --</option>
+              <option *ngFor="let s of specialities" [value]="s">
+                {{ s }}
+              </option>
+            </select>
+
+            <button
+              class="btn btn-secondary btn-block border-0 py-3 mt-3"
+              type="submit"
+              [disabled]="searchForm.invalid"
+            >
+              <i class="fas fa-search mr-2"></i>Search
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

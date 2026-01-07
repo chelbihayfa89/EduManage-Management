@@ -103,26 +103,26 @@
                 type="tel"
                 class="form-control"
                 placeholder="Your Phone Number"
-                formControlName="tel"
+                formControlName="phone"
               />
-              <div *ngIf="f.tel.invalid && (f.tel.touched || f.tel.dirty)">
+              <div *ngIf="f.phone.invalid && (f.phone.touched || f.phone.dirty)">
                 <small
                   class="text-danger d-block"
-                  *ngIf="f.tel.errors?.['required']"
+                  *ngIf="f.phone.errors?.['required']"
                 >
                   <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
                   Please enter your phone
                 </small>
                 <small
                   class="text-danger d-block"
-                  *ngIf="f.tel.errors?.['pattern']"
+                  *ngIf="f.phone.errors?.['pattern']"
                 >
                   <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
                   Only digits allowed
                 </small>
                 <small
                   class="text-danger d-block"
-                  *ngIf="f.tel.errors?.['minlength']"
+                  *ngIf="f.phone.errors?.['minlength']"
                 >
                   <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
                   Minimum 8 digits
@@ -194,17 +194,17 @@
                   type="tel"
                   class="form-control"
                   placeholder="Your child phone"
-                  formControlName="childTel"
+                  formControlName="childPhone"
                 />
                 <div
                   *ngIf="
-                    f.childTel.invalid &&
-                    (f.childTel.touched || f.childTel.dirty)
+                    f.childPhone.invalid &&
+                    (f.childPhone.touched || f.childPhone.dirty)
                   "
                 >
                   <small
                     class="text-danger d-block"
-                    *ngIf="f.childTel.errors?.['required']"
+                    *ngIf="f.childPhone.errors?.['required']"
                   >
                     <i
                       class="fas fa-exclamation-triangle text-warning mr-2"
@@ -213,7 +213,7 @@
                   </small>
                   <small
                     class="text-danger d-block"
-                    *ngIf="f.childTel.errors?.['pattern']"
+                    *ngIf="f.childPhone.errors?.['pattern']"
                   >
                     <i
                       class="fas fa-exclamation-triangle text-warning mr-2"
@@ -222,7 +222,7 @@
                   </small>
                   <small
                     class="text-danger d-block"
-                    *ngIf="f.childTel.errors?.['minlength']"
+                    *ngIf="f.childPhone.errors?.['minlength']"
                   >
                     <i
                       class="fas fa-exclamation-triangle text-warning mr-2"

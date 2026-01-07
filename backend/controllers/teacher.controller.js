@@ -1,14 +1,17 @@
 const teachersArr = require("../data/teacher.data.js");
 
-const searchTeacherBySpeciality = (req, res) => {
-  const speciality = req.params.speciality;
-  const filteredTeachers = teachersArr.filter(
-    (t) => t.speciality === speciality
-  );
-  if (filteredTeachers.length === 0) {
-    return res.status(404).json({ message: "No teacher found" });
+const getTeachers = (req, res) => {
+  const speciality = req.query.speciality;
+
+  if (speciality) {
+    const filteredTeachers = teachersArr.filter(
+      (t) => t.speciality === speciality
+    );
+
+    return res.status(200).json({ teachers: filteredTeachers });
   }
-  res.status(200).json({ teachers: filteredTeachers });
+
+  return res.status(200).json({ teachers: teachersArr });
 };
 
-module.exports = { searchTeacherBySpeciality };
+module.exports = { getTeachers };

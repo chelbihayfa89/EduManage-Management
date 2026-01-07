@@ -10,8 +10,21 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
   loginData: any = { phone: '', password: '' };
+  errMsg!: string;
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {}
-  login() {}
+  login() {
+    this.authService.login(this.loginData).subscribe({
+      next: (res) => {
+        console.log(res.message, res.user);
+        if (res.message == 'Welcome') {
+        }
+      },
+      error: (err) => {
+        console.log(err);
+        this.errMsg = err.error.message;
+      },
+    });
+  }
 }

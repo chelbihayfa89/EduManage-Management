@@ -11,6 +11,7 @@ import { AddCourseComponent } from './components/pages/add-course/add-course.com
 import { EditCourseComponent } from './components/pages/edit-course/edit-course.component';
 import { AdminDashboardComponent } from './components/dashboards/admin/admin-dashboard/admin-dashboard.component';
 import { RegisterComponent } from './components/auth/register/register.component';
+import { LoginComponent } from './components/auth/login/login.component';
 
 const routes: Routes = [
   {
@@ -22,7 +23,9 @@ const routes: Routes = [
   { path: 'course/:id', component: CourseInfoComponent },
   { path: 'teachers', component: TeachersComponent },
   { path: 'search-teachers', component: SearchTeacherComponent },
+  { path: 'teachers/search', component: TeachersComponent },
   { path: 'register/:role', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'teacher/dashboard', component: TeacherDashboardComponent },
   { path: 'teacher/addCourse', component: AddCourseComponent },
   { path: 'teacher/editCourse/:id', component: EditCourseComponent },
