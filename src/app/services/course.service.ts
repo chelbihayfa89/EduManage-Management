@@ -1,29 +1,28 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CourseService {
-  private apiUrl = 'http://localhost:3000/api/course';
+  private apiUrl = 'http://localhost:3000/api/courses';
   constructor(private http: HttpClient) {}
 
   getCourses() {
-    return this.http.get<{ courses: any }>(this.apiUrl);
+    return this.http.get<{ courses: any, message: string}>(this.apiUrl);
   }
 
-  getCourseById(id: number) {
-    return this.http.get<{ course: any; message: string }>(
+  getCourseById(id: any) {
+    return this.http.get<{ course?: any; message?: string }>(
       `${this.apiUrl}/${id}`
     );
   }
 
-  deleteCourseById(id: number) {
+  deleteCourseById(id: any) {
     return this.http.delete<{ message: string }>(`${this.apiUrl}/${id}`);
   }
 
-  updateCourse(updatedCourse: any, id: number) {
+  updateCourse(updatedCourse: any, id: any) {
     return this.http.put<{message: string, course: any}>(`${this.apiUrl}/${id}`, updatedCourse);
   }
 

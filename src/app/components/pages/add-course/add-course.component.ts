@@ -30,7 +30,6 @@ export class AddCourseComponent implements OnInit {
       }).then(() => {
         addCourseF.resetForm();
         this.course = {};
-        this.router.navigate(["teacher"])
       })
     });  
   }

@@ -89,13 +89,13 @@
                   <td>{{course.description}}</td>
                   <td>{{course.duration}}</td>
                   <td>
-                    <a class="btn btn-sm btn-outline-primary mr-1" title="View" (click)="goToCourseInfo(course.id)">
+                    <a class="btn btn-sm btn-outline-primary mr-1" title="View" (click)="goToCourseInfo(course._id)">
                       <i class="fas fa-eye"></i>
                     </a>
-                    <a class="btn btn-sm btn-outline-success mr-1" title="Edit" (click)="goToEditCourse(course.id)">
+                    <a class="btn btn-sm btn-outline-success mr-1" title="Edit" (click)="goToEditCourse(course._id)">
                       <i class="fas fa-pen"></i>
                     </a>
-                    <a class="btn btn-sm btn-outline-danger mr-1" title="Delete" (click)="deleteCourse(course.id)">
+                    <a class="btn btn-sm btn-outline-danger mr-1" title="Delete" (click)="deleteCourse(course._id)">
                       <i class="fas fa-trash"></i>
                     </a>
                   </td>

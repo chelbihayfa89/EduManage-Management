@@ -15,11 +15,11 @@ export class TeacherDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.getCourses();
   }
-  goToCourseInfo(id: number) {
+  goToCourseInfo(id: any) {
     console.log(id);
     this.router.navigate(['/course', id]);
   }
-  deleteCourse(id: number) {
+  deleteCourse(id: any) {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -43,7 +43,7 @@ export class TeacherDashboardComponent implements OnInit {
       }
     });
   }
-  goToEditCourse(id: number) {
+  goToEditCourse(id: any) {
     this.router.navigate(['/teacher/editCourse', id]);
   }
   getCourses() {

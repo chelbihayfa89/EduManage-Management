@@ -12,6 +12,7 @@ import { EditCourseComponent } from './components/pages/edit-course/edit-course.
 import { AdminDashboardComponent } from './components/dashboards/admin/admin-dashboard/admin-dashboard.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { LoginComponent } from './components/auth/login/login.component';
+import { EditCourseByAdminComponent } from './components/edit-course-by-admin/edit-course-by-admin.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'teacher/addCourse', component: AddCourseComponent },
   { path: 'teacher/editCourse/:id', component: EditCourseComponent },
   { path: 'admin/dashboard', component: AdminDashboardComponent },
+  { path: 'admin/editCourse/:id', component: EditCourseByAdminComponent },
 ];
 
 @NgModule({

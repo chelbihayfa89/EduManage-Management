@@ -1,35 +1,63 @@
 const coursesArr = require("../data/course.data");
+const Course = require("../models/course.model");
 
 const getCourses = (req, res) => {
-  res.status(200).json({ courses: coursesArr });
+  Course.find()
+    .then((courses) => {
+      res.status(200).json({ courses });
+    })
+    .catch((error) => {
+      res.status(500).json({ message: error.message });
+    });
 };
 
 const getCourseById = (req, res) => {
-  const id = Number(req.params.id);
-  const course = coursesArr.find((c) => c.id === id);
-  if (!course) {
-    return res.status(404).json({ message: "No course found" });
-  }
-  console.table(course);
-  res.status(200).json({ course: course });
+  Course.findById(req.params.id) // recherche par _id
+    .then((course) => {
+      if (course) {
+        return res.status(200).json({ course });
+      } else {
+        return res.status(404).json({ message: "No course found" });
+      }
+    })
+    .catch((error) => {
+      res.status(404).json({ message: error.message });
+    });
 };
 
 const deleteCourseById = (req, res) => {
-  const id = Number(req.params.id);
-  const index = coursesArr.findIndex((c) => c.id === id);
-  if (index === -1) {
-    return res.status(404).json({ message: "No course found" });
-  }
-  coursesArr.splice(index, 1);
-  res.status(200).json({ message: "Course deleted successfully" });
+  Course.deleteOne({ _id: req.params.id })
+    .then((deleteResponse) => {
+      if (deleteResponse.deletedCount === 1) {
+        res.status(200).json({ message: "Course deleted successfully" });
+      } else {
+        return res.status(404).json({ message: "No course found" });
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({ message: error.message });
+    });
 };
 
 const addCourse = (req, res) => {
-  const newCourse = { id: coursesArr.length + 1, ...req.body }; // génère un id si absent
-  coursesArr.push(newCourse);
-  res
-    .status(201)
-    .json({ message: "Course added successfully", course: newCourse });
+  console.log("Body reçu :", req.body);
+  const course = new Course({
+    name: req.body.name,
+    description: req.body.description,
+    duration: req.body.duration,
+  });
+  course
+    .save()
+    .then((savedCourse) => {
+      res
+        .status(201)
+        .json({ message: "Course added successfully", course: savedCourse });
+    })
+    .catch((error) => {
+      res
+        .status(500)
+        .json({ message: "Error adding course", error: error.message });
+    });
 };
 
 const updateCourse = (req, res) => {

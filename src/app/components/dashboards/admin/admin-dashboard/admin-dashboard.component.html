@@ -137,36 +137,20 @@
                 </tr>
                 <tr>
                   <th>Name</th>
-                  <th>Teacher</th>
                   <th>Description</th>
                   <th>Duration</th>
-                  <th>Students</th>
                   <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>Mathematics</td>
-                  <td>Jane Smith</td>
-                  <td>Basic math course</td>
-                  <td>90 min</td>
-                  <td>John Doe, Alice Brown</td>
+                <tr *ngFor="let course of courses">
+                  <td>{{course.name}}</td>
+                  <td>{{course.description}}</td>
+                  <td>{{course.duration}} min</td>
                   <td>
-                    <a class="btn btn-sm btn-outline-primary mr-1" title="View" href="#"><i class="fas fa-eye"></i></a>
-                    <a class="btn btn-sm btn-outline-success mr-1" title="Edit" href="#"><i class="fas fa-pen"></i></a>
-                    <a class="btn btn-sm btn-outline-danger mr-1" title="Delete" href="#"><i class="fas fa-trash"></i></a>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Science</td>
-                  <td>John Smith</td>
-                  <td>Intro to science</td>
-                  <td>60 min</td>
-                  <td>Jane Doe</td>
-                  <td>
-                    <a class="btn btn-sm btn-outline-primary mr-1" title="View" href="#"><i class="fas fa-eye"></i></a>
-                    <a class="btn btn-sm btn-outline-success mr-1" title="Edit" href="#"><i class="fas fa-pen"></i></a>
-                    <a class="btn btn-sm btn-outline-danger mr-1" title="Delete" href="#"><i class="fas fa-trash"></i></a>
+                    <a class="btn btn-sm btn-outline-primary mr-1" title="View" (click)="goToCourseInfo(course._id)"><i class="fas fa-eye"></i></a>
+                    <a class="btn btn-sm btn-outline-success mr-1" title="Edit"><i class="fas fa-pen" (click)="goToEditCourse(course._id)"></i></a>
+                    <a class="btn btn-sm btn-outline-danger mr-1" title="Delete"><i class="fas fa-trash" (click)="deleteCourse(course._id)"></i></a>
                   </td>
                 </tr>
               </tbody>

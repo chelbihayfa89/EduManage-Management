@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
+import { CourseService } from 'src/app/services/course.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -7,16 +8,24 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./admin-dashboard.component.css'],
 })
 export class AdminDashboardComponent implements OnInit {
+  courses: any[] = [];
   users: any[] = [];
-  constructor(private userService: UserService) {}
+  constructor(private router: Router, private courseService: CourseService) {}
 
   ngOnInit(): void {
-    this.userService.getUsers().subscribe({
-      next: (res) => {
-        console.log(res.users);
-        this.users = res.users;
+    this.courseService.getCourses().subscribe({
+      next: (data) => {
+        this.courses = data.courses;
       },
-      error: (err) => {},
     });
+  }
+  goToCourseInfo(id: any) {
+    this.router.navigate(['/course', id]);
+  }
+  goToEditCourse(id: any) {
+    this.router.navigate(['/admin/editCourse', id]);
+  }
+  deleteCourse(id: any) {
+    console.log(id);
   }
 }

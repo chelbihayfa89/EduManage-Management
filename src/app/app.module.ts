@@ -28,6 +28,7 @@ import { CourseInfoComponent } from './components/course-info/course-info.compon
 import { AddCourseComponent } from './components/pages/add-course/add-course.component';
 import { EditCourseComponent } from './components/pages/edit-course/edit-course.component';
 import { AdminDashboardComponent } from './components/dashboards/admin/admin-dashboard/admin-dashboard.component';
+import { EditCourseByAdminComponent } from './components/edit-course-by-admin/edit-course-by-admin.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { AdminDashboardComponent } from './components/dashboards/admin/admin-das
     AddCourseComponent,
     EditCourseComponent,
     AdminDashboardComponent,
+    EditCourseByAdminComponent,
 
   ],
   imports: [

@@ -11,14 +11,14 @@ export class CourseInfoComponent implements OnInit {
   showBanner: boolean = true;
   @Input() title: string = 'Course Info';
   course: any = {};
-  courseId!: number;
+  courseId!: any;
   constructor(
     private route: ActivatedRoute,
     private courseService: CourseService
   ) {}
 
   ngOnInit(): void {
-    this.courseId = Number(this.route.snapshot.paramMap.get('id'));
+    this.courseId = this.route.snapshot.paramMap.get('id');
     this.courseService.getCourseById(this.courseId).subscribe((data) => {
       if (data.course) {
         this.course = data.course;
