@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { CourseService } from 'src/app/services/course.service';
+import { Course } from 'src/app/models/course.model';
+import { CourseService } from 'src/app/services/course/course.service';
 
 @Component({
   selector: 'app-courses',
@@ -9,7 +10,7 @@ import { CourseService } from 'src/app/services/course.service';
 export class CoursesComponent implements OnInit {
   title: string = 'Our Courses';
   @Input() showBanner: boolean = true;
-  courses: any = [];
+  courses!: Course [];
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {

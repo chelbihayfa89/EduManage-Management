@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Course } from 'src/app/models/course.model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -9,24 +11,23 @@ export class CourseService {
   constructor(private http: HttpClient) {}
 
   getCourses() {
-    return this.http.get<{ courses: any, message: string}>(this.apiUrl);
+    return this.http.get<{ courses: Course[], message: string}>(this.apiUrl);
   }
 
-  getCourseById(id: any) {
-    return this.http.get<{ course?: any; message?: string }>(
+  getCourseById(id: string) {
+    return this.http.get<{ course?: Course; message?: string }>(
       `${this.apiUrl}/${id}`
     );
   }
 
-  deleteCourseById(id: any) {
+  deleteCourseById(id: string) {
     return this.http.delete<{ message: string }>(`${this.apiUrl}/${id}`);
   }
 
-  updateCourse(updatedCourse: any, id: any) {
-    return this.http.put<{message: string, course: any}>(`${this.apiUrl}/${id}`, updatedCourse);
-  }
+  updateCourse(updatedCourse: Course, id: string) {
+    return this.http.put<{message: string, course: Course}>(`${this.apiUrl}/${id}`, updatedCourse) }
 
-  addCourse(newCourse: any) {
+  addCourse(newCourse: Course) {
     return this.http.post<{message: string}>(this.apiUrl, newCourse);
   }
 }

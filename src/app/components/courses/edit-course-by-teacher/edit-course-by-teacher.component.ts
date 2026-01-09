@@ -1,27 +1,30 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CourseService } from 'src/app/services/course.service';
+import { Course } from 'src/app/models/course.model';
+import { CourseService } from 'src/app/services/course/course.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-edit-course',
-  templateUrl: './edit-course.component.html',
-  styleUrls: ['./edit-course.component.css'],
+  selector: 'app-edit-course-by-teacher',
+  templateUrl: './edit-course-by-teacher.component.html',
+  styleUrls: ['./edit-course-by-teacher.component.css'],
 })
-export class EditCourseComponent implements OnInit {
+export class EditCourseByTeacherComponent implements OnInit {
   showBanner: boolean = true;
   @Input() title: string = 'Update Course Information';
-  course: any = {};
-  courseId!: number;
+  course!: Course;
+  courseId!: string;
   constructor(
     private route: ActivatedRoute,
     private courseService: CourseService
   ) {}
 
   ngOnInit(): void {
-    this.courseId = Number(this.route.snapshot.paramMap.get('id'));
+    this.courseId = this.route.snapshot.paramMap.get('id') || '';
     this.courseService.getCourseById(this.courseId).subscribe((data) => {
-      this.course = data.course;
+      if (data.course) {
+        this.course = data.course;
+      }
     });
   }
   editCourse(f: any) {

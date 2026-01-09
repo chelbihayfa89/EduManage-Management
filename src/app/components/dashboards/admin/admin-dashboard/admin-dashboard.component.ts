@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CourseService } from 'src/app/services/course.service';
+import { Course } from 'src/app/models/course.model';
+import { CourseService } from 'src/app/services/course/course.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -8,7 +9,7 @@ import { CourseService } from 'src/app/services/course.service';
   styleUrls: ['./admin-dashboard.component.css'],
 })
 export class AdminDashboardComponent implements OnInit {
-  courses: any[] = [];
+  courses!: Course[];
   users: any[] = [];
   constructor(private router: Router, private courseService: CourseService) {}
 
@@ -19,13 +20,13 @@ export class AdminDashboardComponent implements OnInit {
       },
     });
   }
-  goToCourseInfo(id: any) {
+  goToCourseInfo(id: string) {
     this.router.navigate(['/course', id]);
   }
-  goToEditCourse(id: any) {
+  goToEditCourse(id: string) {
     this.router.navigate(['/admin/editCourse', id]);
   }
-  deleteCourse(id: any) {
+  deleteCourse(id: string) {
     console.log(id);
   }
 }

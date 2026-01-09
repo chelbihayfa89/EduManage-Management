@@ -1,17 +1,18 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CourseService } from 'src/app/services/course.service';
+import { Course } from 'src/app/models/course.model';
+import { CourseService } from 'src/app/services/course/course.service';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-add-course',
-  templateUrl: './add-course.component.html',
-  styleUrls: ['./add-course.component.css'],
+  selector: 'app-add-course-by-teacher',
+  templateUrl: './add-course-by-teacher.component.html',
+  styleUrls: ['./add-course-by-teacher.component.css']
 })
-export class AddCourseComponent implements OnInit {
-  showBanner: boolean = true;
+export class AddCourseByTeacherComponent implements OnInit {
+   showBanner: boolean = true;
   @Input() title: string = 'Add Course';
-  course: any = {};
+  course!: Course;
   constructor(private courseService: CourseService, private router: Router) {}
 
   ngOnInit(): void {}

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CourseService } from 'src/app/services/course.service';
+import { Course } from 'src/app/models/course.model';
+import { CourseService } from 'src/app/services/course/course.service';
 
 @Component({
   selector: 'app-edit-course-by-admin',
@@ -10,15 +11,15 @@ import { CourseService } from 'src/app/services/course.service';
 export class EditCourseByAdminComponent implements OnInit {
   showBanner: boolean = true;
   @Input() title: string = 'Edit course iformation';
-  course: any = {};
-  courseId!: any;
+  course!: Course;
+  courseId!: string;
   constructor(
     private route: ActivatedRoute,
     private courseService: CourseService
   ) {}
 
   ngOnInit(): void {
-    this.courseId = this.route.snapshot.paramMap.get('id');
+    this.courseId = this.route.snapshot.paramMap.get('id') || "";
     console.log(this.courseId);
     this.courseService.getCourseById(this.courseId).subscribe({
       next: (data) => {
