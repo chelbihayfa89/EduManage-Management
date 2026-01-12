@@ -19,21 +19,24 @@
                 type="text"
                 class="form-control"
                 placeholder="Your First Name"
-                formControlName="fname"
+                formControlName="firstName"
               />
               <div
-                *ngIf="f.fname.invalid && (f.fname.touched || f.fname.dirty)"
+                *ngIf="
+                  f.firstName.invalid &&
+                  (f.firstName.touched || f.firstName.dirty)
+                "
               >
                 <small
                   class="text-danger d-block"
-                  *ngIf="f.fname.errors?.['required']"
+                  *ngIf="f.firstName.errors?.['required']"
                 >
                   <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
                   Please enter your firstname
                 </small>
                 <small
                   class="text-danger d-block"
-                  *ngIf="f.fname.errors?.['minlength']"
+                  *ngIf="f.firstName.errors?.['minlength']"
                 >
                   <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
                   Minimum 3 characters
@@ -47,21 +50,23 @@
                 type="text"
                 class="form-control"
                 placeholder="Your Last Name"
-                formControlName="lname"
+                formControlName="lastName"
               />
               <div
-                *ngIf="f.lname.invalid && (f.lname.touched || f.lname.dirty)"
+                *ngIf="
+                  f.lastName.invalid && (f.lastName.touched || f.lastName.dirty)
+                "
               >
                 <small
                   class="text-danger d-block"
-                  *ngIf="f.lname.errors?.['required']"
+                  *ngIf="f.lastName.errors?.['required']"
                 >
                   <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
                   Please enter your lastname
                 </small>
                 <small
                   class="text-danger d-block"
-                  *ngIf="f.lname.errors?.['minlength']"
+                  *ngIf="f.lastName.errors?.['minlength']"
                 >
                   <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
                   Minimum 3 characters
@@ -96,6 +101,11 @@
                 </small>
               </div>
             </div>
+            <div *ngIf="emailErrMsg">
+              <small>
+                <i class="fas fa-exclamation-triangle text-warning mr-2">{{emailErrMsg}}</i>
+              </small>
+            </div>
 
             <!-- Phone -->
             <div class="control-group mb-2">
@@ -105,7 +115,9 @@
                 placeholder="Your Phone Number"
                 formControlName="phone"
               />
-              <div *ngIf="f.phone.invalid && (f.phone.touched || f.phone.dirty)">
+              <div
+                *ngIf="f.phone.invalid && (f.phone.touched || f.phone.dirty)"
+              >
                 <small
                   class="text-danger d-block"
                   *ngIf="f.phone.errors?.['required']"
@@ -136,19 +148,23 @@
                 type="text"
                 class="form-control"
                 placeholder="Your Address"
-                formControlName="adr"
+                formControlName="address"
               />
-              <div *ngIf="f.adr.invalid && (f.adr.touched || f.adr.dirty)">
+              <div
+                *ngIf="
+                  f.address.invalid && (f.address.touched || f.address.dirty)
+                "
+              >
                 <small
                   class="text-danger d-block"
-                  *ngIf="f.adr.errors?.['required']"
+                  *ngIf="f.address.errors?.['required']"
                 >
                   <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
                   Please enter your address
                 </small>
                 <small
                   class="text-danger d-block"
-                  *ngIf="f.adr.errors?.['minlength']"
+                  *ngIf="f.address.errors?.['minlength']"
                 >
                   <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
                   Minimum 3 characters
@@ -242,7 +258,7 @@
                   class="form-control"
                   formControlName="speciality"
                 >
-                  <option value="" disabled selected>Choose Speciality</option>
+                  <option value="" disabled>Choose Speciality</option>
                   <option></option>
                   <option [value]="s" *ngFor="let s of specialities">
                     {{ s }}

@@ -29,6 +29,7 @@ import { AdminDashboardComponent } from './components/dashboards/admin/admin-das
 import { EditCourseByAdminComponent } from './components/courses/edit-course-by-admin/edit-course-by-admin.component';
 import { EditCourseByTeacherComponent } from './components/courses/edit-course-by-teacher/edit-course-by-teacher.component';
 import { AddCourseByTeacherComponent } from './components/courses/add-course-by-teacher/add-course-by-teacher.component';
+import { ContactComponent } from './components/pages/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { AddCourseByTeacherComponent } from './components/courses/add-course-by-
     EditCourseByAdminComponent,
     EditCourseByTeacherComponent,
     AddCourseByTeacherComponent,
+    ContactComponent,
 
   ],
   imports: [

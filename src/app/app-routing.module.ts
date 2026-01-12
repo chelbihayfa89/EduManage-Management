@@ -12,6 +12,7 @@ import { RegisterComponent } from './components/auth/register/register.component
 import { LoginComponent } from './components/auth/login/login.component';
 import { EditCourseByAdminComponent } from './components/courses/edit-course-by-admin/edit-course-by-admin.component';
 import { EditCourseByTeacherComponent } from './components/courses/edit-course-by-teacher/edit-course-by-teacher.component';
+import { ContactComponent } from './components/pages/contact/contact.component';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
     component: HomeComponent,
   },
   { path: 'about', component: AboutComponent },
+  {path: 'contact', component: ContactComponent},
   { path: 'courses', component: CoursesComponent },
   { path: 'course/:id', component: CourseInfoComponent },
   { path: 'teachers', component: TeachersComponent },

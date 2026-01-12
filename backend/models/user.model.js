@@ -4,7 +4,7 @@ const { type } = require("os");
 const userSchema = new mongoose.Schema({
   role: {
     type: String,
-    enum: ["Admin", "Teacher", "Student", "Parent"],
+    enum: ["admin", "teacher", "student", "parent"],
     required: true,
   },
   firstName: { type: String, required: true },
@@ -17,6 +17,8 @@ const userSchema = new mongoose.Schema({
   photo: { type: String },
   teacherCv: { type: String },
   validated: { type: Boolean, default: false },
+  childPhone: { type: String }
+  
 });
 
 const User = mongoose.model("User", userSchema);

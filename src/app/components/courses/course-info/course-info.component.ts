@@ -19,11 +19,16 @@ export class CourseInfoComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.courseId = this.route.snapshot.paramMap.get('id') || "";
-    this.courseService.getCourseById(this.courseId).subscribe((data) => {
-      if (data.course) {
-        this.course = data.course;
-      }
+    this.courseId = this.route.snapshot.paramMap.get('id') || '';
+    this.courseService.getCourseById(this.courseId).subscribe({
+      next: (res) => {
+        if (res.course) {
+          this.course = res.course;
+        }
+      },
+      error: (err) => {
+        console.log(err.message);
+      },
     });
   }
 }

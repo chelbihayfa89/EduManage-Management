@@ -61,21 +61,26 @@ const addCourse = (req, res) => {
 };
 
 const updateCourse = (req, res) => {
-  const updatedData = req.body;
-  const id = Number(req.params.id);
-  const index = coursesArr.findIndex((c) => c.id === Number(id));
-  if (index === -1) {
-    return res.status(404).json({ message: "No course found" });
-  }
-  if (!updatedData.name || !updatedData.description || !updatedData.duration) {
-    return res.status(400).json({ message: "Invalid Data" });
-  }
-  // fusion partielle
-  coursesArr[index] = { ...coursesArr[index], ...updatedData };
-  res.status(200).json({
-    message: "Course updated successfully",
-    course: coursesArr[index],
-  });
+  const courseId = req.params.id;
+
+  Course.updateOne({ _id: courseId }, req.body)
+    .then((updateRes) => {
+      if (updateRes.matchedCount === 0) {
+        return res.status(404).json({ message: "No course found" });
+      }
+      if (updateRes.modifiedCount === 0) {
+        return res
+          .status(200)
+          .json({ message: "Course found but nothing was updated" });
+      }
+
+      res.status(200).json({ message: "Course updated successfully" });
+    })
+    .catch((err) => {
+      res
+        .status(500)
+        .json({ message: "Error updating course", error: err.message });
+    });
 };
 
 module.exports = {

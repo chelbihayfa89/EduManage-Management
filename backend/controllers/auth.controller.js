@@ -1,29 +1,67 @@
-const users = require("../data/user.data");
+const User = require("../models/user.model");
+const bcrypt = require("bcrypt");
 
 const register = (req, res) => {
-  const emailExists = users.find((u) => u.email === req.body.email);
-  if (emailExists) {
-    return res.status(400).json({ message: "Email already in use" });
-  }
-  const newUser = { id: users.length + 1, ...req.body };
-  users.push(newUser);
-  return res
-    .status(201)
-    .json({ message: "user added successfully", user: newUser });
+  User.findOne({ email: req.body.email }).then((existingUser) => {
+    if (existingUser) {
+      return res
+        .status(409)
+        .json({ message: "User already exists with this email" });
+    }
+
+    bcrypt.hash(req.body.password, 10).then((hashedPassword) => {
+      req.body.password = hashedPassword;
+      const user = new User(req.body);
+      console.log(hashedPassword);
+      user
+        .save()
+        .then((doc) => {
+          res.status(201).json({
+            message: "User added with success",
+            user: doc,
+          });
+        })
+        .catch((err) => {
+          res.status(500).json({
+            message: "Error while adding user",
+            error: err.message,
+          });
+        });
+    });
+  });
 };
 
 const login = (req, res) => {
   const { phone, password } = req.body;
-  console.log("REQ BODY =", req.body);
 
-  const user = users.find((u) => u.phone === phone && u.password === password);
+  User.findOne({ phone })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "Invalid credentials" });
+      }
 
-  if (!user) {
-    return res
-      .status(404)
-      .json({ message: "No user found with these credentials" });
-  }
+      // On retourne une promesse avec user pour le prochain then
+      return bcrypt
+        .compare(password, user.password)
+        .then((isMatch) => ({ isMatch, user })) // ✅ syntaxe correcte
+        .catch((err) => {
+          // attrape bcrypt.compare pour éviter ERR_HTTP_HEADERS_SENT
+          return Promise.reject(err);
+        });
+    })
+    .then(({ isMatch, user }) => {
+      if (!isMatch) {
+        return res.status(401).json({ message: "Invalid credentials" });
+      }
 
-  return res.status(200).json({ message: "Welcome", user: user });
+      return res.status(200).json({ message: "Login successful", user });
+    })
+    .catch((err) => {
+      return res.status(500).json({
+        message: "Server error",
+        error: err.message,
+      });
+    });
 };
+
 module.exports = { register, login };

@@ -16,12 +16,24 @@ export class LoginComponent implements OnInit {
   login() {
     this.authService.login(this.loginData).subscribe({
       next: (res) => {
-        console.log(res.message, res.user);
-        if (res.message == 'Welcome') {
+        console.log(res);
+        const { role } = res.user;
+        switch (role) {
+          case 'teacher':
+            this.router.navigate(['/teacher/dashboard']);
+            break;
+          case 'student':
+            this.router.navigate(['/student/dashboard']);
+            break;
+          case 'parent':
+            this.router.navigate(['/parent/dashboard']);
+            break;
+          default:
+          // code block
         }
       },
       error: (err) => {
-        console.log(err);
+        console.log(err.error.message);
         this.errMsg = err.error.message;
       },
     });

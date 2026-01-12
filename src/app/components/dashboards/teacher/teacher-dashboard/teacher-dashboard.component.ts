@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/course/course.service';
 import Swal from 'sweetalert2';
 
@@ -9,17 +10,17 @@ import Swal from 'sweetalert2';
   styleUrls: ['./teacher-dashboard.component.css'],
 })
 export class TeacherDashboardComponent implements OnInit {
-  courses: any[] = [];
+  courses: Course[] = [];
   constructor(private courseService: CourseService, private router: Router) {}
 
   ngOnInit(): void {
     this.getCourses();
   }
-  goToCourseInfo(id: any) {
+  goToCourseInfo(id: string) {
     console.log(id);
     this.router.navigate(['/course', id]);
   }
-  deleteCourse(id: any) {
+  deleteCourse(id: string) {
     Swal.fire({
       title: 'Are you sure?',
       text: "You won't be able to revert this!",
@@ -31,7 +32,7 @@ export class TeacherDashboardComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.courseService.deleteCourseById(id).subscribe((data) => {
-          if (data.message == 'Course deleted successfully') {
+          if (data?.message == 'Course deleted successfully') {
             Swal.fire({
               title: 'Deleted!',
               text: 'Your file has been deleted.',
@@ -43,12 +44,21 @@ export class TeacherDashboardComponent implements OnInit {
       }
     });
   }
-  goToEditCourse(id: any) {
+  goToEditCourse(id: string) {
     this.router.navigate(['/teacher/editCourse', id]);
   }
   getCourses() {
-    this.courseService.getCourses().subscribe((data) => {
-      this.courses = data.courses;
+    this.courseService.getCourses().subscribe({
+      next: (data) => {
+        if (data.courses) {
+          this.courses = data.courses;
+        } else {
+          console.log(data.message);
+        }
+      },
+      error: (err) => {
+        console.log(err.message);
+      },
     });
   }
 }

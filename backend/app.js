@@ -3,12 +3,9 @@
  ***************************************************/
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
-// Routes
-const courseRoutes = require("./routes/course.routes");
-const teacherRoutes = require("./routes/teacher.routes");
-const userRoutes = require("./routes/user.routes");
-const authRoutes = require("./routes/auth.routes");
+
 
 /***************************************************
  * Création de l'application Express
@@ -23,18 +20,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // CORS : permet au front d'accéder au serveur
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*"); // Tout le monde peut accéder
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, Accept, Content-Type, X-Requested-with, Authorization"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, DELETE, OPTIONS, PATCH, PUT"
-  );
-  next();
+app.use(cors({
+  origin: "http://localhost:4200", // ton front Angular
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
+}));
+
+
+app.options("*", (req, res) => {
+  res.sendStatus(200);
 });
+// Routes
+const courseRoutes = require("./routes/course.routes");
+const teacherRoutes = require("./routes/teacher.routes");
+const userRoutes = require("./routes/user.routes");
+const authRoutes = require("./routes/auth.routes");
+
 
 /***************************************************
  * Connexion à MongoDB
