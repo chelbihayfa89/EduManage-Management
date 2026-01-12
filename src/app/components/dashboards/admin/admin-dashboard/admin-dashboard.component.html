@@ -115,9 +115,22 @@
               <tbody>
                 <tr *ngFor="let user of users">
                   <td>{{user.firstName}} {{user.lastName}}</td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.phone}}</td>
+                  <td>{{user.role}}</td>
                   <td>
-                    <a class="btn btn-sm btn-outline-success mr-1" title="View" href="#"><i class="fas fa-eye"></i></a>
-                    <a class="btn btn-sm btn-outline-danger mr-1" title="Delete" href="#"><i class="fas fa-trash"></i></a>
+                    <span *ngIf="user.role !== 'teacher'">
+                      -
+                    </span>
+                    <span *ngIf="user.role == 'teacher'"> 
+                      {{user.validated ? "validated" : "not validated"}}
+                    </span>
+                  </td>
+                  <td>
+                    <a class="btn btn-sm btn-outline-primary mr-1" title="View" (click)="goToUserInfo(user._id!)"><i class="fas fa-eye"></i></a>
+                    <a *ngIf="user.role == 'teacher' && !user.validated" class="btn btn-sm btn-outline-success mr-1" title="Validate" (click)="validateUser(user._id!)"><i class="fas fa-check"></i></a>
+                    <a class="btn btn-sm btn-outline-success mr-1" title="Edit" (click)="goToEditUser(user._id!)"><i class="fas fa-pen"></i></a>
+                    <a class="btn btn-sm btn-outline-danger mr-1" title="Delete" (click)="deleteUser(user._id!)"><i class="fas fa-trash"></i></a>
                   </td>
                 </tr>
               </tbody>

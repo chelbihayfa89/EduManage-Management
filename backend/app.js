@@ -52,7 +52,7 @@ mongoose.connect("mongodb://127.0.0.1:27017/school_management", {
  ***************************************************/
 app.use("/api/courses", courseRoutes);
 app.use("/api/teachers", teacherRoutes);
-app.use("/api/user", userRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 
 /***************************************************

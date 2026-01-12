@@ -1,5 +1,5 @@
 export interface User {
-  _id: string;
+  _id?: string;
   role?: 'admin' | 'teacher' | 'student' | 'parent';
   firstName?: string;
   lastName?: string;
@@ -7,4 +7,5 @@ export interface User {
   phone?: string;
   address?: string;
   password?: string;
+  validated?: boolean
 }

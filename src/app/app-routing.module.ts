@@ -13,6 +13,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { EditCourseByAdminComponent } from './components/courses/edit-course-by-admin/edit-course-by-admin.component';
 import { EditCourseByTeacherComponent } from './components/courses/edit-course-by-teacher/edit-course-by-teacher.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
+import { UserInfoComponent } from './components/users/user-info/user-info.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'teacher/editCourse/:id', component: EditCourseByTeacherComponent },
   { path: 'admin/dashboard', component: AdminDashboardComponent },
   { path: 'admin/editCourse/:id', component: EditCourseByAdminComponent },
+  {path: 'user/:id', component : UserInfoComponent}
 ];
 
 @NgModule({
