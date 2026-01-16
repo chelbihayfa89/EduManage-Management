@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from 'src/app/models/user.model';
 
@@ -28,4 +28,13 @@ export class UserService {
   deleteUser(id: string) {
     return this.http.delete<{message: string}>(`${this.apiUrl}/${id}`);
   }
+  
+  getProfile() {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
+    return this.http.get<{message: string, user: User}>(`${this.apiUrl}/profile`, {headers})
+  }
+  
 }
+
+

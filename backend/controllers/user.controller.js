@@ -50,4 +50,25 @@ const deleteUserById = (req, res) => {
     });
 };
 
-module.exports = { getUsers, getUserById, validateUser, deleteUserById };
+const getProfile = (req, res) => {
+  const userId = req.user._id; // récupéré depuis le token
+
+  User.findById(userId)
+    .then((user) => {
+      if (!user) {
+        return res.status(404).json({ message: "No user found" });
+      }
+      return res.status(200).json({ user }); // 200 = OK
+    })
+    .catch((err) => {
+      return res.status(500).json({ err: err.message });
+    });
+};
+
+module.exports = {
+  getUsers,
+  getUserById,
+  validateUser,
+  deleteUserById,
+  getProfile,
+};

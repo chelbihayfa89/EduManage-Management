@@ -29,7 +29,7 @@
             <a routerLink="/teachers" class="nav-item nav-link" routerLinkActive="active">Teachers</a>
             <a routerLink="/search-teachers" class="nav-item nav-link">Search Teacher</a>
             <a routerLink="/contact" class="nav-item nav-link">Contact</a>
-            <div class="nav-item dropdown">
+            <div class="nav-item dropdown" *ngIf="!user">
               <a
                 href="#"
                 class="nav-link dropdown-toggle"
@@ -42,7 +42,10 @@
                 <a routerLink ="/register/parent" class="dropdown-item">Parent</a>
               </div>
             </div>
-            <a routerLink="/login" class="nav-item nav-link">Login</a>
+            <a *ngIf="!user" routerLink="/login" class="nav-item nav-link">Login</a>
+            <a *ngIf="user?._id" class="nav-item nav-link">Welcome {{user?.firstName}} {{user?.lastName}}</a>
+            <a *ngIf="user?._id" class="nav-item nav-link" [routerLink]="getDashboardLink()">Dashboard</a>
+            <a *ngIf="user?._id" class="nav-item nav-link" (click)="logout()">Logout</a>
           </div>
         </div>
       </nav>

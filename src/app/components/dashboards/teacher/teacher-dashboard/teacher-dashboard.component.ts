@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/models/course.model';
+import { Teacher } from 'src/app/models/teacher.model';
 import { CourseService } from 'src/app/services/course/course.service';
 import Swal from 'sweetalert2';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-teacher-dashboard',
@@ -11,9 +13,14 @@ import Swal from 'sweetalert2';
 })
 export class TeacherDashboardComponent implements OnInit {
   courses: Course[] = [];
+  teacher!: Teacher;
   constructor(private courseService: CourseService, private router: Router) {}
 
   ngOnInit(): void {
+    const token = sessionStorage.getItem('token');
+    if (token) {
+      this.teacher = jwtDecode(token);
+    } 
     this.getCourses();
   }
   goToCourseInfo(id: string) {

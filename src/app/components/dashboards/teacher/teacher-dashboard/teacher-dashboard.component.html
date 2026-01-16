@@ -13,19 +13,19 @@
         border: 2px solid #dee2e6;
       "
     />
-    <h5 class="mb-0">Teacher Name</h5>
+    <h5 class="mb-0">{{teacher.firstName}} {{teacher.lastName}}</h5>
   </div>
 
   <ul class="nav flex-column navitem w-100 mt-4">
     <li class="nav-item mb-4">
-      <a routerLink="" class="d-flex align-items-center active side-gap">
+      <a routerLink="/user/profile" class="d-flex align-items-center active side-gap">
         <i class="fas fa-home text-primary"></i>
         <span>Home</span>
       </a>
     </li>
 
     <li class="nav-item mb-3">
-      <a routerLink="/teacher/profile" class="d-flex align-items-center side-gap">
+      <a routerLink="/user/profile" class="d-flex align-items-center side-gap">
         <i class="fas fa-user text-primary"></i>
         <span>Profile</span>
       </a>

@@ -9,7 +9,7 @@ export class AuthService {
   private apiUrl: string = 'http://localhost:3000/api/auth';
   constructor(private http: HttpClient) {}
   login(credentials: any) {
-    return this.http.post<{message: string, user: User}>(`${this.apiUrl}/login`, credentials);
+    return this.http.post<{message: string, token: string}>(`${this.apiUrl}/login`, credentials);
   }
 
   register(user: any) {

@@ -1,5 +1,6 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
+const generateToken = require("../utils/token");
 
 const register = (req, res) => {
   User.findOne({ email: req.body.email }).then((existingUser) => {
@@ -40,27 +41,36 @@ const login = (req, res) => {
         return res.status(404).json({ message: "Invalid credentials" });
       }
 
-      // On retourne une promesse avec user pour le prochain then
-      return bcrypt
-        .compare(password, user.password)
-        .then((isMatch) => ({ isMatch, user })) // ✅ syntaxe correcte
-        .catch((err) => {
-          // attrape bcrypt.compare pour éviter ERR_HTTP_HEADERS_SENT
-          return Promise.reject(err);
-        });
-    })
-    .then(({ isMatch, user }) => {
-      if (!isMatch) {
-        return res.status(401).json({ message: "Invalid credentials" });
-      }
+      bcrypt.compare(password, user.password).then((isMatch) => {
+        if (!isMatch) {
+          return res.status(401).json({ message: "Invalid credentials" });
+        }
+        const token = generateToken(user);
+        // Renvoyer les infos importantes sans le mot de passe
+        // const userData = {
+        //   _id: user._id,
+        //   role: user.role,
+        //   firstName: user.firstName,
+        //   lastName: user.lastName,
+        //   email: user.email,
+        //   phone: user.phone,
+        //   address: user.address,
+        //   speciality: user.speciality,
+        //   photo: user.photo,
+        //   teacherCv: user.teacherCv,
+        //   validated: user.validated,
+        //   childPhone: user.childPhone,
+        // };
 
-      return res.status(200).json({ message: "Login successful", user });
+        return res
+          .status(200)
+          .json({ message: "Login successful", token: token });
+      });
     })
     .catch((err) => {
-      return res.status(500).json({
-        message: "Server error",
-        error: err.message,
-      });
+      return res
+        .status(500)
+        .json({ message: "Server error", error: err.message });
     });
 };
 

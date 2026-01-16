@@ -1,4 +1,5 @@
 const teachersArr = require("../data/teacher.data.js");
+const User = require("../models/user.model.js");
 
 const getTeachers = (req, res) => {
   const speciality = req.query.speciality;
@@ -14,4 +15,5 @@ const getTeachers = (req, res) => {
   return res.status(200).json({ teachers: teachersArr });
 };
 
-module.exports = { getTeachers };
+
+module.exports = { getTeachers};

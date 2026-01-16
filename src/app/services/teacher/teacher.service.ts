@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Teacher } from 'src/app/models/teacher.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +12,10 @@ export class TeacherService {
 
   getTeachers(speciality?: string) {
     return speciality
-      ? this.http.get<{teachers: any}>(`${this.apiUrl}?speciality=${speciality}`)
-      : this.http.get<{teachers: any}>(this.apiUrl);
+      ? this.http.get<{ teachers: any }>(
+          `${this.apiUrl}?speciality=${speciality}`
+        )
+      : this.http.get<{ teachers: any }>(this.apiUrl);
   }
 
   getTeacherById(id: number) {
@@ -30,4 +33,5 @@ export class TeacherService {
   deleteTeacherById(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
 }

@@ -5,6 +5,7 @@ import { User } from 'src/app/models/user.model';
 import { CourseService } from 'src/app/services/course/course.service';
 import { UserService } from 'src/app/services/user/user.service';
 import Swal from 'sweetalert2';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -14,6 +15,7 @@ import Swal from 'sweetalert2';
 export class AdminDashboardComponent implements OnInit {
   courses: Course[] = [];
   users: User[] = [];
+  admin: any;
   counter: number = 0;
   constructor(
     private router: Router,
@@ -22,6 +24,11 @@ export class AdminDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const token = sessionStorage.getItem('token');
+    if(token) {
+      const decoded = jwtDecode(token);
+      this.admin = decoded;
+    }
     this.getCourses();
     this.getUsers();
   }
@@ -87,7 +94,6 @@ export class AdminDashboardComponent implements OnInit {
   goToUserInfo(id: string) {
     this.router.navigate(['/user', id]);
   }
- 
 
   deleteUser(id: string) {
     Swal.fire({
@@ -118,7 +124,7 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
   goToEditUser(id: string) {}
-   getUsers() {
+  getUsers() {
     this.userService.getUsers().subscribe({
       next: (res) => {
         this.users = res.users;

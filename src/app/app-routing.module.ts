@@ -14,6 +14,7 @@ import { EditCourseByAdminComponent } from './components/courses/edit-course-by-
 import { EditCourseByTeacherComponent } from './components/courses/edit-course-by-teacher/edit-course-by-teacher.component';
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { UserInfoComponent } from './components/users/user-info/user-info.component';
+import { AuthGuard } from './guards/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -21,7 +22,7 @@ const routes: Routes = [
     component: HomeComponent,
   },
   { path: 'about', component: AboutComponent },
-  {path: 'contact', component: ContactComponent},
+  { path: 'contact', component: ContactComponent },
   { path: 'courses', component: CoursesComponent },
   { path: 'course/:id', component: CourseInfoComponent },
   { path: 'teachers', component: TeachersComponent },
@@ -30,10 +31,11 @@ const routes: Routes = [
   { path: 'register/:role', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'teacher/dashboard', component: TeacherDashboardComponent },
+  { path: 'user/profile', component: UserInfoComponent },
   { path: 'teacher/editCourse/:id', component: EditCourseByTeacherComponent },
-  { path: 'admin/dashboard', component: AdminDashboardComponent },
+  { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], data:{role: 'admin'}},
   { path: 'admin/editCourse/:id', component: EditCourseByAdminComponent },
-  {path: 'user/:id', component : UserInfoComponent}
+  { path: 'user/:id', component: UserInfoComponent },
 ];
 
 @NgModule({
