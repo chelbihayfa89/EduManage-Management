@@ -15,6 +15,7 @@ import { EditCourseByTeacherComponent } from './components/courses/edit-course-b
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { UserInfoComponent } from './components/users/user-info/user-info.component';
 import { AuthGuard } from './guards/guards/auth.guard';
+import { AddCourseByTeacherComponent } from './components/courses/add-course-by-teacher/add-course-by-teacher.component';
 
 const routes: Routes = [
   {
@@ -30,10 +31,26 @@ const routes: Routes = [
   { path: 'teachers/search', component: TeachersComponent },
   { path: 'register/:role', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'teacher/dashboard', component: TeacherDashboardComponent },
+  {
+    path: 'dashboard/teacher',
+    component: TeacherDashboardComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'teacher' },
+  },
   { path: 'user/profile', component: UserInfoComponent },
   { path: 'teacher/editCourse/:id', component: EditCourseByTeacherComponent },
-  { path: 'admin/dashboard', component: AdminDashboardComponent, canActivate: [AuthGuard], data:{role: 'admin'}},
+  {
+    path: 'teacher/addCourse',
+    component: AddCourseByTeacherComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'teacher' },
+  },
+  {
+    path: 'admin/dashboard',
+    component: AdminDashboardComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
+  },
   { path: 'admin/editCourse/:id', component: EditCourseByAdminComponent },
   { path: 'user/:id', component: UserInfoComponent },
 ];

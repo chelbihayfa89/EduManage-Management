@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class AddCourseByTeacherComponent implements OnInit {
    showBanner: boolean = true;
   @Input() title: string = 'Add Course';
-  course!: Course;
+  course: Course = {};
   constructor(private courseService: CourseService, private router: Router) {}
 
   ngOnInit(): void {}

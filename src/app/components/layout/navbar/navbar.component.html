@@ -44,8 +44,8 @@
             </div>
             <a *ngIf="!user" routerLink="/login" class="nav-item nav-link">Login</a>
             <a *ngIf="user?._id" class="nav-item nav-link">Welcome {{user?.firstName}} {{user?.lastName}}</a>
-            <a *ngIf="user?._id" class="nav-item nav-link" [routerLink]="getDashboardLink()">Dashboard</a>
-            <a *ngIf="user?._id" class="nav-item nav-link" (click)="logout()">Logout</a>
+            <a *ngIf="user?._id" class="nav-item nav-link">Dashboard</a>
+            <a *ngIf="user?._id" class="nav-item nav-link">Logout</a>
           </div>
         </div>
       </nav>

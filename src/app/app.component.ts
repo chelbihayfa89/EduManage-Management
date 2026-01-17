@@ -10,9 +10,9 @@ export class AppComponent {
   title = 'EduManageNew';
   constructor(private router: Router) {}
   isTeacherDashboard(): boolean {
-    return this.router.url.startsWith('/teacher/dashboard');
+    return this.router.url.startsWith('/dashboard/teacher');
   }
   isAdminDashboard(): boolean {
-    return this.router.url.startsWith('/admin/dashboard');
+    return this.router.url.startsWith('/dashboard/admin');
   }
 }

@@ -5,8 +5,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
-
-
 /***************************************************
  * Création de l'application Express
  ***************************************************/
@@ -20,12 +18,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // CORS : permet au front d'accéder au serveur
-app.use(cors({
-  origin: "http://localhost:4200", // ton front Angular
-  methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-
+app.use(
+  cors({
+    origin: "http://localhost:4200", // ton front Angular
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 app.options("*", (req, res) => {
   res.sendStatus(200);
@@ -35,17 +34,19 @@ const courseRoutes = require("./routes/course.routes");
 const teacherRoutes = require("./routes/teacher.routes");
 const userRoutes = require("./routes/user.routes");
 const authRoutes = require("./routes/auth.routes");
-
+const dashboardRoutes = require("./routes/dashboard.routes");
 
 /***************************************************
  * Connexion à MongoDB
  ***************************************************/
-mongoose.connect("mongodb://127.0.0.1:27017/school_management", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,  autoIndex: true
-})
-.then(() => console.log("✅ MongoDB connecté !"))
-.catch(err => console.error("❌ Erreur de connexion :", err.message));
+mongoose
+  .connect("mongodb://127.0.0.1:27017/school_management", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    autoIndex: true,
+  })
+  .then(() => console.log("✅ MongoDB connecté !"))
+  .catch((err) => console.error("❌ Erreur de connexion :", err.message));
 
 /***************************************************
  * Routes API
@@ -54,6 +55,7 @@ app.use("/api/courses", courseRoutes);
 app.use("/api/teachers", teacherRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 /***************************************************
  * Export de l'application

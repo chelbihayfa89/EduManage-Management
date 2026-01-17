@@ -1,14 +1,28 @@
-   <div class="card border-0 bg-light shadow-sm pb-2 course-card">
-      <img
-        class="card-img-top mb-2"
-        src="assets/template/img/class-x.jpg"
-        alt=""
-      />
-      <div class="card-body text-center">
-        <h4 class="card-title">{{c.name}}</h4>
-        <p class="card-text">{{c.description}}</p>
-      </div>
-      <div class="card-footer bg-transparent py-4 px-5">
-        <p class="text-center"><i class="fas fa-clock mr-2 text-primary"></i><strong>{{c.duration}}</strong> Hours</p>
-      </div>
-    </div>
+<div class="card border-0 shadow-sm mb-4 course-card">
+  <!-- Course image -->
+  <img
+    class="card-img-top"
+    src="assets/template/img/class-x.jpg"
+    alt="Course image"
+  />
+
+  <!-- Card body -->
+  <div class="card-body text-center">
+    <h5 class="card-title text-primary">{{ c.name }}</h5>
+    <p class="card-text text-muted">{{ c.description }}</p>
+  </div>
+
+  <!-- Card footer -->
+  <div class="card-footer bg-white d-flex justify-content-between align-items-center">
+    <!-- Course duration -->
+    <span class="text-secondary">
+      <i class="fas fa-clock mr-1"></i>
+      <strong>{{ c.duration }}</strong> Hours
+    </span>
+
+    <!-- Optional "View details" button -->
+    <button class="btn btn-sm btn-outline-primary">
+      View Details
+    </button>
+  </div>
+</div>

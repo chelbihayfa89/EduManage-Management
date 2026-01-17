@@ -5,6 +5,8 @@ import { Teacher } from 'src/app/models/teacher.model';
 import { CourseService } from 'src/app/services/course/course.service';
 import Swal from 'sweetalert2';
 import { jwtDecode } from 'jwt-decode';
+import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
+
 
 @Component({
   selector: 'app-teacher-dashboard',
@@ -14,15 +16,33 @@ import { jwtDecode } from 'jwt-decode';
 export class TeacherDashboardComponent implements OnInit {
   courses: Course[] = [];
   teacher!: Teacher;
-  constructor(private courseService: CourseService, private router: Router) {}
+  role!: string;
+  constructor(
+    private dashboardService: DashboardService,
+    private courseService: CourseService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     const token = sessionStorage.getItem('token');
     if (token) {
-      this.teacher = jwtDecode(token);
-    } 
+      const decoded: any = jwtDecode(token);
+      this.teacher = {
+        _id: decoded._id,
+        firstName: decoded.firstName,
+        lastName: decoded.lastName,
+        role: decoded.role,
+      };
+      this.role = decoded.role;
+    }
+    this.dashboardService.getDashboard(this.role).subscribe({
+      next: (res) => {
+        console.log(res.message);
+      },
+    });
     this.getCourses();
   }
+
   goToCourseInfo(id: string) {
     console.log(id);
     this.router.navigate(['/course', id]);
