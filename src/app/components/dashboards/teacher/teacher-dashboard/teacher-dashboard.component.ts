@@ -7,7 +7,6 @@ import Swal from 'sweetalert2';
 import { jwtDecode } from 'jwt-decode';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 
-
 @Component({
   selector: 'app-teacher-dashboard',
   templateUrl: './teacher-dashboard.component.html',
@@ -40,7 +39,8 @@ export class TeacherDashboardComponent implements OnInit {
         console.log(res.message);
       },
     });
-    this.getCourses();
+
+    this.getTeacherCourses();
   }
 
   goToCourseInfo(id: string) {
@@ -65,7 +65,7 @@ export class TeacherDashboardComponent implements OnInit {
               text: 'Your file has been deleted.',
               icon: 'success',
             });
-            this.getCourses();
+            this.getTeacherCourses();
           }
         });
       }
@@ -74,17 +74,14 @@ export class TeacherDashboardComponent implements OnInit {
   goToEditCourse(id: string) {
     this.router.navigate(['/teacher/editCourse', id]);
   }
-  getCourses() {
-    this.courseService.getCourses().subscribe({
+
+  getTeacherCourses() {
+    this.courseService.getTeacherCourses().subscribe({
       next: (data) => {
-        if (data.courses) {
-          this.courses = data.courses;
-        } else {
-          console.log(data.message);
+        if (data.foundCourses) {
+          this.courses = data.foundCourses;
+          console.log('courses', this.courses);
         }
-      },
-      error: (err) => {
-        console.log(err.message);
       },
     });
   }

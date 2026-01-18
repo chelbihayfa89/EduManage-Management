@@ -17,8 +17,13 @@ const userSchema = new mongoose.Schema({
   photo: { type: String },
   teacherCv: { type: String },
   validated: { type: Boolean, default: false },
-  childPhone: { type: String }
-  
+  childPhone: { type: String },
+  courses: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Course",
+    },
+  ],
 });
 
 const User = mongoose.model("User", userSchema);

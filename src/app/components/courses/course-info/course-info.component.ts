@@ -11,7 +11,7 @@ import { CourseService } from 'src/app/services/course/course.service';
 export class CourseInfoComponent implements OnInit {
   showBanner: boolean = true;
   @Input() title: string = 'Course Info';
-  course!: Course;
+  course: Course = {};
   courseId!: string;
   constructor(
     private route: ActivatedRoute,

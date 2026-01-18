@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const authMiddleware = require("../middleware/auth.js");
+const authorize = require("../middleware/authorize.js");
 
 const {
   getCourses,
@@ -8,22 +9,27 @@ const {
   deleteCourseById,
   updateCourse,
   addCourse,
+  getTeacherCourses,
 } = require("../controllers/course.controller.js");
-const authMiddleware = require("../middleware/auth.js");
+
+// 1️⃣ Les routes fixes avant les routes dynamiques
+
+// les cours d'un teacher (route fixe)
+router.get("/teacher", authMiddleware, authorize("teacher"), getTeacherCourses);
 
 // lire tous les cours
 router.get("/", authMiddleware, getCourses);
 
-// lire un cours par id
-router.get("/:id", getCourseById);
+// lire un cours par id (route dynamique)
+router.get("/:id", authMiddleware, authorize("teacher", "admin"), getCourseById);
 
 // mettre à jour un cours
 router.put("/:id", updateCourse);
 
 // supprimer un cours
-router.delete("/:id", deleteCourseById);
+router.delete("/:id", authMiddleware, authorize("teacher", "admin"),deleteCourseById);
 
 // ajouter un cours
-router.post("/", addCourse);
+router.post("/", authMiddleware, authorize("teacher"), addCourse);
 
 module.exports = router;

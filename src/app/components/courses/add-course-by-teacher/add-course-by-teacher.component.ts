@@ -7,10 +7,10 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-add-course-by-teacher',
   templateUrl: './add-course-by-teacher.component.html',
-  styleUrls: ['./add-course-by-teacher.component.css']
+  styleUrls: ['./add-course-by-teacher.component.css'],
 })
 export class AddCourseByTeacherComponent implements OnInit {
-   showBanner: boolean = true;
+  showBanner: boolean = true;
   @Input() title: string = 'Add Course';
   course: Course = {};
   constructor(private courseService: CourseService, private router: Router) {}
@@ -31,7 +31,7 @@ export class AddCourseByTeacherComponent implements OnInit {
       }).then(() => {
         addCourseF.resetForm();
         this.course = {};
-      })
-    });  
+      });
+    });
   }
 }
