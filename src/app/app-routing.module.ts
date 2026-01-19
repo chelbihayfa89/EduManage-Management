@@ -16,6 +16,7 @@ import { ContactComponent } from './components/pages/contact/contact.component';
 import { UserInfoComponent } from './components/users/user-info/user-info.component';
 import { AuthGuard } from './guards/guards/auth.guard';
 import { AddCourseByTeacherComponent } from './components/courses/add-course-by-teacher/add-course-by-teacher.component';
+import { AddCourseByAdminComponent } from './components/courses/add-course-by-admin/add-course-by-admin.component';
 
 const routes: Routes = [
   {
@@ -46,11 +47,12 @@ const routes: Routes = [
     data: { role: 'teacher' },
   },
   {
-    path: 'admin/dashboard',
+    path: 'dashboard/admin',
     component: AdminDashboardComponent,
     canActivate: [AuthGuard],
     data: { role: 'admin' },
   },
+  {path: 'admin/addCourse', component: AddCourseByAdminComponent, canActivate: [AuthGuard], data: {role: "admin"}},
   { path: 'admin/editCourse/:id', component: EditCourseByAdminComponent },
   { path: 'user/:id', component: UserInfoComponent },
 ];

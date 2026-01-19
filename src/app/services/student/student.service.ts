@@ -1,5 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Student } from 'src/app/models/student.model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +10,11 @@ export class StudentService {
   constructor(private http: HttpClient) {}
 
   getStudents() {
-    return this.http.get(this.apiUrl);
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.get<{message: string, students: Student}>(this.apiUrl, { headers });
   }
 
   getStudentById(id: number) {

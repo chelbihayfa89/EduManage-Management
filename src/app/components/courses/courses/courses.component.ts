@@ -18,6 +18,7 @@ export class CoursesComponent implements OnInit {
       next: (res) => {
         if (res.courses) {
           this.courses = res.courses;
+          console.log(res.courses);
         }
       },
       error: (err) => {

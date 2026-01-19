@@ -18,18 +18,28 @@ const {
 router.get("/teacher", authMiddleware, authorize("teacher"), getTeacherCourses);
 
 // lire tous les cours
-router.get("/", authMiddleware, getCourses);
+router.get("/", getCourses);
 
 // lire un cours par id (route dynamique)
-router.get("/:id", authMiddleware, authorize("teacher", "admin"), getCourseById);
+router.get(
+  "/:id",
+  authMiddleware,
+  authorize("teacher", "admin"),
+  getCourseById,
+);
 
 // mettre à jour un cours
 router.put("/:id", updateCourse);
 
 // supprimer un cours
-router.delete("/:id", authMiddleware, authorize("teacher", "admin"),deleteCourseById);
+router.delete(
+  "/:id",
+  authMiddleware,
+  authorize("teacher", "admin"),
+  deleteCourseById,
+);
 
 // ajouter un cours
-router.post("/", authMiddleware, authorize("teacher"), addCourse);
+router.post("/", authMiddleware, authorize("teacher", "admin"), addCourse);
 
 module.exports = router;

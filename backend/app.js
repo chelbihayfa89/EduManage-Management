@@ -23,7 +23,7 @@ app.use(
     origin: "http://localhost:4200", // ton front Angular
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-  })
+  }),
 );
 
 app.options("*", (req, res) => {
@@ -35,6 +35,7 @@ const teacherRoutes = require("./routes/teacher.routes");
 const userRoutes = require("./routes/user.routes");
 const authRoutes = require("./routes/auth.routes");
 const dashboardRoutes = require("./routes/dashboard.routes");
+const studentsRoutes = require("./routes/students.routes");
 
 /***************************************************
  * Connexion à MongoDB
@@ -56,6 +57,7 @@ app.use("/api/teachers", teacherRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/students", studentsRoutes);
 
 /***************************************************
  * Export de l'application

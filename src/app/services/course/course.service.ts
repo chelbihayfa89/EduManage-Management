@@ -20,7 +20,7 @@ export class CourseService {
     });
     return this.http.get<{ course?: Course; message?: string }>(
       `${this.apiUrl}/${id}`,
-      { headers }
+      { headers },
     );
   }
 
@@ -37,7 +37,7 @@ export class CourseService {
   updateCourse(updatedCourse: Course, id: string) {
     return this.http.put<{ message: string; course: Course }>(
       `${this.apiUrl}/${id}`,
-      updatedCourse
+      updatedCourse,
     );
   }
 
@@ -51,7 +51,7 @@ export class CourseService {
       newCourse,
       {
         headers,
-      }
+      },
     );
   }
   getTeacherCourses() {
@@ -61,7 +61,7 @@ export class CourseService {
     });
     return this.http.get<{ message: string; foundCourses: Course[] }>(
       `${this.apiUrl}/teacher`,
-      { headers }
+      { headers },
     );
   }
 }

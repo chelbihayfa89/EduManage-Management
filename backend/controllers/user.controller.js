@@ -12,7 +12,10 @@ const getUsers = (req, res) => {
 };
 
 const getUserById = (req, res) => {
-  User.findById({ _id: req.params.id })
+  if (req.user.role !== "admin") {
+    return res.status(403).json({ message: "unauthorized" });
+  }
+  User.findById(req.params.id)
     .then((user) => {
       if (!user) {
         return res.status(404).json({ message: "No user found with this ID" });
@@ -25,6 +28,9 @@ const getUserById = (req, res) => {
 };
 
 const validateUser = (req, res) => {
+  if (req.user.role !== "admin") {
+    return res.status(403).json({ message: "unauthorized" });
+  }
   const userId = req.params.id;
   User.findByIdAndUpdate(userId, { validated: true })
     .then(() => {
@@ -36,6 +42,9 @@ const validateUser = (req, res) => {
 };
 
 const deleteUserById = (req, res) => {
+  if (req.user.role !== "admin") {
+    return res.status(403).json({ message: "unauthorized" });
+  }
   const userId = req.params.id;
   User.deleteOne({ _id: userId })
     .then((deleteResponse) => {

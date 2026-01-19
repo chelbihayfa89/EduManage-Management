@@ -13,22 +13,37 @@ export class UserService {
   }
 
   validateUser(id: string) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
     return this.http.patch<{ message: string }>(
       `${this.apiUrl}/${id}/validate`,
       {
         validated: true,
-      }
+      },
+      { headers },
     );
   }
   getUserById(id: string) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
     console.log('getUserById called with:', id);
     return this.http.get<{ message: string; user: User }>(
-      `${this.apiUrl}/${id}`
+      `${this.apiUrl}/${id}`,
+      { headers },
     );
   }
 
   deleteUser(id: string) {
-    return this.http.delete<{ message: string }>(`${this.apiUrl}/${id}`);
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.delete<{ message: string }>(`${this.apiUrl}/${id}`, {headers});
   }
 
   getProfile() {
@@ -36,7 +51,7 @@ export class UserService {
     const headers = new HttpHeaders({ Authorization: `Bearer ${token}` });
     return this.http.get<{ message: string; user: User }>(
       `${this.apiUrl}/profile`,
-      { headers }
+      { headers },
     );
   }
 }

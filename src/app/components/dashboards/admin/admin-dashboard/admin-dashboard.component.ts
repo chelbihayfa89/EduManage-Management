@@ -6,6 +6,9 @@ import { CourseService } from 'src/app/services/course/course.service';
 import { UserService } from 'src/app/services/user/user.service';
 import Swal from 'sweetalert2';
 import { jwtDecode } from 'jwt-decode';
+import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
+import { StudentService } from 'src/app/services/student/student.service';
+import { Student } from 'src/app/models/student.model';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -15,23 +18,42 @@ import { jwtDecode } from 'jwt-decode';
 export class AdminDashboardComponent implements OnInit {
   courses: Course[] = [];
   users: User[] = [];
+  students: any = [];
   admin: any;
-  counter: number = 0;
+  role: string = '';
+  coursesCounter: number = 0;
+  studentsCounter: number = 0;
+  teachersCounter: number = 0;
   constructor(
     private router: Router,
+    private dashboardService: DashboardService,
     private courseService: CourseService,
-    private userService: UserService
+    private userService: UserService,
+    private studentService: StudentService,
   ) {}
 
   ngOnInit(): void {
     const token = sessionStorage.getItem('token');
-    if(token) {
+    if (token) {
       const decoded = jwtDecode(token);
       this.admin = decoded;
+      this.role = this.admin.role;
     }
+    this.dashboardService.getDashboard(this.role).subscribe({
+      next: (data) => {
+        console.log(data.message);
+      },
+    });
+    this.studentService.getStudents().subscribe({next: (data) => {
+      if(data.students) {
+        this.students = data.students;
+      }
+    }});
+
     this.getCourses();
     this.getUsers();
   }
+
   goToCourseInfo(id: string) {
     this.router.navigate(['/course', id]);
   }
@@ -67,7 +89,7 @@ export class AdminDashboardComponent implements OnInit {
       next: (data) => {
         if (data.courses) {
           this.courses = data.courses;
-          this.counter = data.courses.length;
+          this.coursesCounter = data.courses.length;
         } else {
           console.log(data.message);
         }
@@ -128,6 +150,9 @@ export class AdminDashboardComponent implements OnInit {
     this.userService.getUsers().subscribe({
       next: (res) => {
         this.users = res.users;
+        this.teachersCounter = this.users.filter(
+          (u) => u.role == 'teacher',
+        ).length;
       },
       error: () => {},
     });

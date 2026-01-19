@@ -24,7 +24,7 @@
         </a>
       </li>
       <li class="nav-item mb-3">
-        <a href="#" class="d-flex align-items-center side-gap">
+        <a routerLink="/admin/addCourse" class="d-flex align-items-center side-gap">
           <i class="fas fa-book text-primary"></i>
           <span>Add Course</span>
         </a>
@@ -62,7 +62,7 @@
             <div class="card-body d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="card-title text-white">Students</h5>
-                <p class="card-text text-white">120</p>
+                <p class="card-text text-white">{{studentsCounter}}</p>
               </div>
               <i class="fas fa-graduation-cap fa-3x text-white"></i>
             </div>
@@ -74,7 +74,7 @@
             <div class="card-body d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="card-title text-white">Teachers</h5>
-                <p class="card-text text-white">15</p>
+                <p class="card-text text-white">{{teachersCounter}}</p>
               </div>
               <i class="fas fa-chalkboard-teacher fa-3x text-white"></i>
             </div>
@@ -86,7 +86,7 @@
             <div class="card-body d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="card-title text-white">Courses</h5>
-                <p class="card-text text-white">{{counter}}</p>
+                <p class="card-text text-white">{{coursesCounter}}</p>
               </div>
               <i class="fas fa-book fa-3x text-white"></i>
             </div>
@@ -190,18 +190,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>John Doe</td>
-                  <td>john@example.com</td>
-                  <td>+123456789</td>
+                <tr *ngFor="let s of students">
+                  <td>{{s.firstName}} {{s.lastName}}</td>
+                  <td>{{s.email}}</td>
+                  <td>{{s.phone}}</td>
                   <td>Class 1</td>
-                  <td><a class="btn btn-sm btn-success" href="#">Affect Student To Class</a></td>
-                </tr>
-                <tr>
-                  <td>Alice Brown</td>
-                  <td>alice@example.com</td>
-                  <td>+987654321</td>
-                  <td>Non Affected</td>
                   <td><a class="btn btn-sm btn-success" href="#">Affect Student To Class</a></td>
                 </tr>
               </tbody>

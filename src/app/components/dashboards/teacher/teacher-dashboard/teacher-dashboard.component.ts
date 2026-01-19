@@ -6,6 +6,7 @@ import { CourseService } from 'src/app/services/course/course.service';
 import Swal from 'sweetalert2';
 import { jwtDecode } from 'jwt-decode';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-teacher-dashboard',
@@ -18,6 +19,7 @@ export class TeacherDashboardComponent implements OnInit {
   role!: string;
   constructor(
     private dashboardService: DashboardService,
+    private authService: AuthService,
     private courseService: CourseService,
     private router: Router
   ) {}
@@ -84,5 +86,9 @@ export class TeacherDashboardComponent implements OnInit {
         }
       },
     });
+  }
+  logout(){
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }

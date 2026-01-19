@@ -10,10 +10,14 @@ export class TeacherService {
 
   constructor(private http: HttpClient) {}
 
+  getAllTeachers() {
+    return this.http.get<{message: string, foundUsers: any}>(`${this.apiUrl}/all`);
+  }
+
   getTeachers(speciality?: string) {
     return speciality
       ? this.http.get<{ teachers: any }>(
-          `${this.apiUrl}?speciality=${speciality}`
+          `${this.apiUrl}?speciality=${speciality}`,
         )
       : this.http.get<{ teachers: any }>(this.apiUrl);
   }
@@ -33,5 +37,4 @@ export class TeacherService {
   deleteTeacherById(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
-
 }

@@ -6,7 +6,7 @@ const getTeachers = (req, res) => {
 
   if (speciality) {
     const filteredTeachers = teachersArr.filter(
-      (t) => t.speciality === speciality
+      (t) => t.speciality === speciality,
     );
 
     return res.status(200).json({ teachers: filteredTeachers });
@@ -15,5 +15,16 @@ const getTeachers = (req, res) => {
   return res.status(200).json({ teachers: teachersArr });
 };
 
+const getAllTeachers = (req, res) => {
+  User.find({ role: "teacher" })
+    .then((foundUsers) => {
+      if (foundUsers.length === 0) {
+        return res.status(200).json({ message: "No found teachers" });
+      } else {
+        return res.status(200).json({ foundUsers });
+      }
+    })
+    .catch((err) => res.status(500).json({ message: err.errors.message }));
+};
 
-module.exports = { getTeachers};
+module.exports = { getTeachers, getAllTeachers };

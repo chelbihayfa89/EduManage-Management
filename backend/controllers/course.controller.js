@@ -1,15 +1,16 @@
-const coursesArr = require("../data/course.data");
 const Course = require("../models/course.model");
 const User = require("../models/user.model");
 
 const getCourses = (req, res) => {
-  Course.find()
-    .then((courses) => {
-      res.status(200).json({ courses });
-    })
-    .catch((error) => {
-      res.status(500).json({ message: error.message });
-    });
+  if (req.user == null) {
+    Course.find()
+      .then((courses) => {
+        res.status(200).json({ courses });
+      })
+      .catch((error) => {
+        res.status(500).json({ message: error.message });
+      });
+  }
 };
 
 const getCourseById = (req, res) => {
@@ -89,8 +90,18 @@ const deleteCourseById = (req, res) => {
 };
 
 const addCourse = (req, res) => {
-  console.log("Body reçu :", req.body);
-  const teacherId = req.user._id;
+  let teacherId;
+  if (req.user.role === "admin") {
+    teacherId = req.body.teacherId;
+    if (!teacherId) {
+      return res.status(400).json({ message: "TeacherID required for admin" });
+    }
+  } else if (req.user.role === "teacher") {
+    teacherId = req.user._id;
+  } else {
+    return res.status(403).json({ message: "Forbidden" });
+  }
+
   const course = new Course({
     name: req.body.name,
     description: req.body.description,

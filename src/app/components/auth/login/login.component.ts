@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
           switch (this.role) {
             case 'admin':
-              this.router.navigate(['/admin/dashboard']);
+              this.router.navigate(['/dashboard/admin']);
               break;
 
             case 'teacher':
@@ -39,11 +39,11 @@ export class LoginComponent implements OnInit {
               break;
 
             case 'student':
-              this.router.navigate(['/student/dashboard']);
+              this.router.navigate(['/']);
               break;
 
             case 'parent':
-              this.router.navigate(['/parent/dashboard']);
+              this.router.navigate(['/dashboard/parent']);
               break;
 
             default:

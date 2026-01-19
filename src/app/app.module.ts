@@ -32,6 +32,7 @@ import { AddCourseByTeacherComponent } from './components/courses/add-course-by-
 import { ContactComponent } from './components/pages/contact/contact.component';
 import { ParentDashboardComponent } from './components/dashboards/parent/parent-dashboard/parent-dashboard.component';
 import { UserInfoComponent } from './components/users/user-info/user-info.component';
+import { AddCourseByAdminComponent } from './components/courses/add-course-by-admin/add-course-by-admin.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { UserInfoComponent } from './components/users/user-info/user-info.compon
     ContactComponent,
     ParentDashboardComponent,
     UserInfoComponent,
+    AddCourseByAdminComponent,
 
 
   ],
