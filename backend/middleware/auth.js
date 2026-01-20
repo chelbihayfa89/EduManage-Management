@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const SECRET_KEY = "MonSuperSecretPourEcole2026!";
+
 const authMiddleware = (req, res, next) => {
   // Lire le token dans les headers Authorization
   const authHeader = req.headers.authorization;
@@ -10,7 +10,7 @@ const authMiddleware = (req, res, next) => {
   // authHeader.split(' ') => ['Bearer', '<TOKEN_JWT>']
   const token = authHeader.split(" ")[1];
   try {
-    const decoded = jwt.verify(token, SECRET_KEY);
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
     req.user = decoded;
     console.log(req.user);
     next();

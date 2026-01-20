@@ -9,6 +9,7 @@ import { jwtDecode } from 'jwt-decode';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { StudentService } from 'src/app/services/student/student.service';
 import { Student } from 'src/app/models/student.model';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -26,6 +27,7 @@ export class AdminDashboardComponent implements OnInit {
   teachersCounter: number = 0;
   constructor(
     private router: Router,
+    private authService: AuthService,
     private dashboardService: DashboardService,
     private courseService: CourseService,
     private userService: UserService,
@@ -156,5 +158,8 @@ export class AdminDashboardComponent implements OnInit {
       },
       error: () => {},
     });
+  }
+  logout() {
+    this.authService.logout();
   }
 }
