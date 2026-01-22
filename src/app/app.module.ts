@@ -33,6 +33,7 @@ import { ContactComponent } from './components/pages/contact/contact.component';
 import { ParentDashboardComponent } from './components/dashboards/parent/parent-dashboard/parent-dashboard.component';
 import { UserInfoComponent } from './components/users/user-info/user-info.component';
 import { AddCourseByAdminComponent } from './components/courses/add-course-by-admin/add-course-by-admin.component';
+import { AddNoteComponent } from './components/notes/add-note/add-note.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { AddCourseByAdminComponent } from './components/courses/add-course-by-ad
     ParentDashboardComponent,
     UserInfoComponent,
     AddCourseByAdminComponent,
+    AddNoteComponent,
 
 
   ],

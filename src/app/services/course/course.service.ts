@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Course } from 'src/app/models/course.model';
+import { Student } from 'src/app/models/student.model';
 
 @Injectable({
   providedIn: 'root',
@@ -63,5 +64,14 @@ export class CourseService {
       `${this.apiUrl}/teacher`,
       { headers },
     );
+  }
+  affectStudentToCourse(courseId: string, student: any) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.post<{message: string}>(`${this.apiUrl}/${courseId}/students`, student, {
+      headers,
+    });
   }
 }

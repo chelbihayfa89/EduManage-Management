@@ -49,7 +49,7 @@
 
       <li class="nav-item mb-3">
         <a
-          routerLink="/teacher/addNote"
+          routerLink="/notes/add"
           class="d-flex align-items-center side-gap"
         >
           <i class="fas fa-pen text-primary"></i>
@@ -86,7 +86,7 @@
             <table class="table table-bordered table-striped table-hover">
               <thead>
                 <tr>
-                  <th colspan="4" class="text-center bg-primary text-white">
+                  <th colspan="5" class="text-center bg-primary text-white">
                     Courses
                   </th>
                 </tr>
@@ -94,6 +94,7 @@
                   <th scope="col">Name</th>
                   <th scope="col">Description</th>
                   <th scope="col">Duration</th>
+                  <th scope="col">Students</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
@@ -102,6 +103,11 @@
                   <th scope="row">{{ course.name }}</th>
                   <td>{{ course.description }}</td>
                   <td>{{ course.duration }}</td>
+                  <td>
+                    <span *ngFor="let s of course.studentsIds">
+                      {{ s.firstName }} {{ s.lastName }}
+                    </span>
+                  </td>
                   <td>
                     <a
                       class="btn btn-sm btn-outline-primary mr-1"

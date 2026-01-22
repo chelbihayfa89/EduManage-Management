@@ -17,11 +17,12 @@ export class TeacherDashboardComponent implements OnInit {
   courses: Course[] = [];
   teacher!: Teacher;
   role!: string;
+  studentsIds!: [{firstName: string; lastName: string}];
   constructor(
     private dashboardService: DashboardService,
     private authService: AuthService,
     private courseService: CourseService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -67,7 +68,7 @@ export class TeacherDashboardComponent implements OnInit {
               text: 'Your file has been deleted.',
               icon: 'success',
             });
-            this.getTeacherCourses();
+            this.courses = this.courses.filter((c) => c._id !== id);
           }
         });
       }
@@ -87,7 +88,7 @@ export class TeacherDashboardComponent implements OnInit {
       },
     });
   }
-  logout(){
+  logout() {
     this.authService.logout();
     this.router.navigate(['/']);
   }

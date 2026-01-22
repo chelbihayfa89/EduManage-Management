@@ -10,6 +10,7 @@ const courseSchema = mongoose.Schema({
     ref: "User",
     required: true,
   },
+  studentsIds: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
 });
 
 const Course = mongoose.model("Course", courseSchema);

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'src/app/models/course.model';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { CourseService } from 'src/app/services/course/course.service';
 import Swal from 'sweetalert2';
 
@@ -12,12 +13,13 @@ import Swal from 'sweetalert2';
 export class EditCourseByAdminComponent implements OnInit {
   showBanner: boolean = true;
   @Input() title: string = 'Edit course iformation';
-  course!: Course;
+  course: Course = {};
   courseId!: string;
   id!: string;
   constructor(
     private route: ActivatedRoute,
-    private courseService: CourseService
+    private courseService: CourseService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -68,5 +70,9 @@ export class EditCourseByAdminComponent implements OnInit {
         }
       },
     });
+  }
+  
+  logout() {
+    this.authService.logout();
   }
 }

@@ -10,6 +10,7 @@ const {
   updateCourse,
   addCourse,
   getTeacherCourses,
+  affectStudentToCourse
 } = require("../controllers/course.controller.js");
 
 // 1️⃣ Les routes fixes avant les routes dynamiques
@@ -41,5 +42,8 @@ router.delete(
 
 // ajouter un cours
 router.post("/", authMiddleware, authorize("teacher", "admin"), addCourse);
+
+// affecter student a un cours
+router.post("/:id/students", authMiddleware, authorize("admin"), affectStudentToCourse)
 
 module.exports = router;

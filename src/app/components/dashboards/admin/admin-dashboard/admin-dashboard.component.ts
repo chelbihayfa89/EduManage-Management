@@ -8,7 +8,6 @@ import Swal from 'sweetalert2';
 import { jwtDecode } from 'jwt-decode';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { StudentService } from 'src/app/services/student/student.service';
-import { Student } from 'src/app/models/student.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
@@ -20,11 +19,21 @@ export class AdminDashboardComponent implements OnInit {
   courses: Course[] = [];
   users: User[] = [];
   students: any = [];
+  student: any = {};
   admin: any;
   role: string = '';
   coursesCounter: number = 0;
   studentsCounter: number = 0;
   teachersCounter: number = 0;
+  selectedIndex: number = -1;
+  selectedStudentIndex: number = -1;
+  showSelectCourseAffect: boolean = false;
+  teacherId?: {
+  _id: string;
+  firstName: string;
+  lastName: string;
+};
+  _id: string = '';
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -46,11 +55,7 @@ export class AdminDashboardComponent implements OnInit {
         console.log(data.message);
       },
     });
-    this.studentService.getStudents().subscribe({next: (data) => {
-      if(data.students) {
-        this.students = data.students;
-      }
-    }});
+    this.getStudents();
 
     this.getCourses();
     this.getUsers();
@@ -91,6 +96,7 @@ export class AdminDashboardComponent implements OnInit {
       next: (data) => {
         if (data.courses) {
           this.courses = data.courses;
+          console.log(this.courses);
           this.coursesCounter = data.courses.length;
         } else {
           console.log(data.message);
@@ -161,5 +167,33 @@ export class AdminDashboardComponent implements OnInit {
   }
   logout() {
     this.authService.logout();
+    this.router.navigate(['/']);
+  }
+
+  selectCourse(i: number) {
+    this.selectedIndex = i;
+  }
+  affecStudentToCourse() {
+    if (this.selectedIndex < 0) return; // rien n'est sélectionné
+    let courseId = this.courses[this.selectedIndex]._id;
+    if (!courseId) {
+      return;
+    }
+    console.log(this.student);
+    console.log(courseId);
+    this.courseService.affectStudentToCourse(courseId, {student: this.student}).subscribe({
+      next: (res) => {
+        console.log(res.message);
+      },
+    });
+  }
+  getStudents() {
+    this.studentService.getStudents().subscribe({
+      next: (data) => {
+        if (data.students) {
+          this.students = data.students;
+        }
+      },
+    });
   }
 }

@@ -4,6 +4,8 @@ const User = require("../models/user.model");
 const getCourses = (req, res) => {
   if (req.user == null) {
     Course.find()
+      .populate("teacherId", "firstName lastName")
+      .populate("studentsIds", "firstName lastName")
       .then((courses) => {
         res.status(200).json({ courses });
       })
@@ -152,6 +154,8 @@ const updateCourse = (req, res) => {
 const getTeacherCourses = (req, res) => {
   const teacherId = req.user._id;
   Course.find({ teacherId: teacherId })
+    .populate("teacherId", "firstName lastName")
+    .populate("studentsIds", "firstName lastName")
     .then((foundCourses) => {
       console.log("Courses trouvées:", foundCourses);
       if (foundCourses.length > 0) {
@@ -164,6 +168,55 @@ const getTeacherCourses = (req, res) => {
     });
 };
 
+const affectStudentToCourse = (req, res) => {
+  const courseId = req.params.id;
+  const studentId = req.body.student._id;
+
+  if (!studentId) {
+    return res.status(400).json({ message: "Student ID is required" });
+  }
+
+  // Vérifier que le cours existe
+  Course.findById(courseId)
+    .then((course) => {
+      if (!course) {
+        return res.status(404).json({ message: "No course found" });
+      }
+
+      // Vérifier que l'étudiant existe
+      User.findById(studentId)
+        .then((student) => {
+          if (!student) {
+            return res.status(404).json({ message: "No student found" });
+          }
+
+          // Ajouter l'étudiant au cours (évite les doublons)
+          course
+            .updateOne({ $addToSet: { studentsIds: studentId } })
+            .then(() => {
+              return res
+                .status(200)
+                .json({ message: "Student affected successfully" });
+            })
+            .catch((err) => {
+              return res
+                .status(500)
+                .json({ message: "Error updating course", error: err.message });
+            });
+        })
+        .catch((err) => {
+          return res
+            .status(500)
+            .json({ message: "Error finding student", error: err.message });
+        });
+    })
+    .catch((err) => {
+      return res
+        .status(500)
+        .json({ message: "Error finding course", error: err.message });
+    });
+};
+
 module.exports = {
   getCourses,
   getCourseById,
@@ -171,4 +224,5 @@ module.exports = {
   deleteCourseById,
   addCourse,
   getTeacherCourses,
+  affectStudentToCourse,
 };
