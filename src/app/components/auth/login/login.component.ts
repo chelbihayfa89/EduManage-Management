@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
               break;
 
             case 'student':
-              this.router.navigate(['/']);
+              this.router.navigate(['/dashboard/student']);
               break;
 
             case 'parent':

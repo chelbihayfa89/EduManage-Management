@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { jwtDecode } from 'jwt-decode';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { JwtPayload } from 'src/app/models/jwt-payload.model';
 
 @Component({
   selector: 'app-teacher-dashboard',
@@ -15,8 +16,8 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class TeacherDashboardComponent implements OnInit {
   courses: Course[] = [];
-  teacher!: Teacher;
-  role!: string;
+  teacher: JwtPayload | null = null;
+  role: string = "";
   studentsIds!: [{firstName: string; lastName: string}];
   constructor(
     private dashboardService: DashboardService,
@@ -28,14 +29,8 @@ export class TeacherDashboardComponent implements OnInit {
   ngOnInit(): void {
     const token = sessionStorage.getItem('token');
     if (token) {
-      const decoded: any = jwtDecode(token);
-      this.teacher = {
-        _id: decoded._id,
-        firstName: decoded.firstName,
-        lastName: decoded.lastName,
-        role: decoded.role,
-      };
-      this.role = decoded.role;
+      this.teacher = jwtDecode<JwtPayload>(token);
+      this.role = this.teacher.role || "";
     }
     this.dashboardService.getDashboard(this.role).subscribe({
       next: (res) => {

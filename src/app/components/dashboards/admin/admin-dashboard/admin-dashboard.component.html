@@ -13,7 +13,7 @@
           border: 2px solid #dee2e6;
         "
       />
-      <h5 class="mb-0">{{ admin.firstName }} {{ admin.lastName }}</h5>
+      <h5 class="mb-0">{{ admin?.firstName }} {{ admin?.lastName }}</h5>
     </div>
     <ul class="nav flex-column navitem w-100 mt-4">
       <li class="nav-item mb-4">
@@ -265,7 +265,6 @@
                         <strong>Teacher :</strong>
                         {{ courses[selectedIndex].teacherId?.firstName }}
                         {{ courses[selectedIndex].teacherId?.lastName }}
-  
 
                         <button
                           class="btn btn-sm btn-secondary d-block mt-3 mx-auto rounded"

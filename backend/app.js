@@ -36,6 +36,7 @@ const userRoutes = require("./routes/user.routes");
 const authRoutes = require("./routes/auth.routes");
 const dashboardRoutes = require("./routes/dashboard.routes");
 const studentsRoutes = require("./routes/students.routes");
+const noteRoutes = require("./routes/note.routes");
 
 /***************************************************
  * Connexion à MongoDB
@@ -58,6 +59,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/students", studentsRoutes);
+app.use("/api/notes", noteRoutes);
 
 /***************************************************
  * Export de l'application

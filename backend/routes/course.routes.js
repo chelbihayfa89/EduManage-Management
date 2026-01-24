@@ -10,7 +10,8 @@ const {
   updateCourse,
   addCourse,
   getTeacherCourses,
-  affectStudentToCourse
+  affectStudentToCourse,
+  getCoursesByStudent,
 } = require("../controllers/course.controller.js");
 
 // 1️⃣ Les routes fixes avant les routes dynamiques
@@ -20,6 +21,14 @@ router.get("/teacher", authMiddleware, authorize("teacher"), getTeacherCourses);
 
 // lire tous les cours
 router.get("/", getCourses);
+
+// Obtenir les cours d'un student
+router.get(
+  "/my-courses",
+  authMiddleware,
+  authorize("student"),
+  getCoursesByStudent,
+);
 
 // lire un cours par id (route dynamique)
 router.get(
@@ -44,6 +53,11 @@ router.delete(
 router.post("/", authMiddleware, authorize("teacher", "admin"), addCourse);
 
 // affecter student a un cours
-router.post("/:id/students", authMiddleware, authorize("admin"), affectStudentToCourse)
+router.post(
+  "/:id/students",
+  authMiddleware,
+  authorize("admin"),
+  affectStudentToCourse,
+);
 
 module.exports = router;

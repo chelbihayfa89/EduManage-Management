@@ -18,6 +18,7 @@ import { AuthGuard } from './guards/guards/auth.guard';
 import { AddCourseByTeacherComponent } from './components/courses/add-course-by-teacher/add-course-by-teacher.component';
 import { AddCourseByAdminComponent } from './components/courses/add-course-by-admin/add-course-by-admin.component';
 import { AddNoteComponent } from './components/notes/add-note/add-note.component';
+import { StudentDashboardComponent } from './components/dashboards/student/student-dashboard/student-dashboard.component';
 
 const routes: Routes = [
   {
@@ -53,10 +54,26 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { role: 'admin' },
   },
-  {path: 'admin/addCourse', component: AddCourseByAdminComponent, canActivate: [AuthGuard], data: {role: "admin"}},
+  {
+    path: 'admin/addCourse',
+    component: AddCourseByAdminComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
+  },
   { path: 'admin/editCourse/:id', component: EditCourseByAdminComponent },
   { path: 'user/:id', component: UserInfoComponent },
-  {path: 'notes/add', component: AddNoteComponent}
+  {
+    path: 'notes/add',
+    component: AddNoteComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'teacher' },
+  },
+  {
+    path: 'dashboard/student',
+    component: StudentDashboardComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'student' },
+  },
 ];
 
 @NgModule({

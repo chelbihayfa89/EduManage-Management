@@ -1,5 +1,5 @@
 <div *ngIf="showBanner">
-    <app-banner [t]="title"></app-banner>
+  <app-banner [t]="title"></app-banner>
 </div>
 
 <div class="container-fluid pt-5">
@@ -17,15 +17,26 @@
           <form [formGroup]="addNoteForm" (ngSubmit)="addNote()">
             <!-- Courses -->
             <div class="control-group mb-3">
-              <select class="form-control" formControlName="courseId" (change)="onCourseChange($event)">
-                <option disabled selected>Select Course</option>
-                <option *ngFor="let c of courses" [value]="c._id">{{c.name}}</option>
+              <select
+                class="form-control"
+                formControlName="courseId"
+                (change)="onCourseChange($event)"
+              >
+                <option disabled selected value="">-- Select Course --</option>
+                <option *ngFor="let c of courses" [value]="c._id">
+                  {{ c.name }}
+                </option>
               </select>
-              <div *ngIf="addNoteForm.controls['courseId'].invalid && (addNoteForm.controls['courseId'].touched || addNoteForm.controls['courseId'].dirty)">
-                <div *ngIf="addNoteForm.controls['courseId'].errors?.['required']">
-                    <span class="text-danger">
+              <div
+                *ngIf="
+                  f['courseId'].invalid &&
+                  (f['courseId'].touched || f['courseId'].dirty)
+                "
+              >
+                <div *ngIf="f['courseId'].errors?.['required']">
+                  <span class="text-danger">
                     <i class="fas fa-exclamation-triangle text-warning mr-2"></i
-                    >Course is required
+                    >Please select a course
                   </span>
                 </div>
               </div>
@@ -34,9 +45,24 @@
             <!-- Students -->
             <div class="control-group mb-3">
               <select class="form-control" formControlName="studentId">
-                <option disabled selected>Select Student</option>
-                <option *ngFor="let s of selectedCourse?.studentsIds">{{s.firstName}}</option>
+                <option disabled selected value="">-- Select Student --</option>
+                <option *ngFor="let s of selectedCourse?.studentsIds" [value]="s._id">
+                  {{ s.firstName }}
+                </option>
               </select>
+              <div
+                *ngIf="
+                  f['studentId'].invalid &&
+                  (f['studentId'].touched || f['studentId'].dirty)
+                "
+              >
+                <div *ngIf="f['studentId'].errors?.['required']">
+                  <span class="text-danger">
+                    <i class="fas fa-exclamation-triangle text-warning mr-2"></i
+                    >Please select a student
+                  </span>
+                </div>
+              </div>
             </div>
 
             <!-- Note -->
@@ -45,7 +71,33 @@
                 type="number"
                 class="form-control"
                 placeholder="Note (0 to 20)"
+                name="note"
+                formControlName="note"
               />
+              <div
+                *ngIf="
+                  f['note'].invalid && (f['note'].touched || f['note'].dirty)
+                "
+              >
+                <div *ngIf="f['note'].errors?.['required']">
+                  <span class="text-danger">
+                    <i class="fas fa-exclamation-triangle text-warning mr-2"></i
+                    >Please enter a note (0–20)
+                  </span>
+                </div>
+              </div>
+              <div *ngIf="f['note'].errors?.['min']">
+                <span class="text-danger">
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i
+                  >Min: 0
+                </span>
+              </div>
+              <div *ngIf="f['note'].errors?.['max']">
+                <span class="text-danger">
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i
+                  >Max: 20
+                </span>
+              </div>
             </div>
 
             <!-- Evaluation -->
@@ -54,12 +106,44 @@
                 type="text"
                 class="form-control"
                 placeholder="Evaluation"
+                name="evaluation"
+                formControlName="evaluation"
               />
+              <div
+                *ngIf="
+                  f['evaluation'].invalid &&
+                  (f['evaluation'].touched || f['evaluation'].dirty)
+                "
+              >
+                <div *ngIf="f['evaluation'].errors?.['required']">
+                  <span class="text-danger">
+                    <i class="fas fa-exclamation-triangle text-warning mr-2"></i
+                    >Evaluation must be at least 5 characters long
+                  </span>
+                </div>
+              </div>
+              <div
+                *ngIf="
+                  f['evaluation'].invalid &&
+                  (f['evaluation'].touched || f['evaluation'].dirty)
+                "
+              >
+                <div *ngIf="f['evaluation'].errors?.['minlength']">
+                  <span class="text-danger">
+                    <i class="fas fa-exclamation-triangle text-warning mr-2"></i
+                    >Minimum 5 characters
+                  </span>
+                </div>
+              </div>
             </div>
 
             <!-- Submit -->
-            <button class="btn btn-primary w-100 mt-3" type="submit">
-              Add Note
+            <button
+              class="btn btn-primary w-100 mt-3"
+              type="submit"
+              [disabled]="addNoteForm.invalid"
+            >
+              Add Note for Student
             </button>
           </form>
         </div>

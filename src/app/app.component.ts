@@ -15,4 +15,7 @@ export class AppComponent {
   isAdminDashboard(): boolean {
     return this.router.url.startsWith('/dashboard/admin');
   }
+  isStudentDashboard():boolean {
+    return this.router.url.startsWith('/dashboard/student');
+  }
 }

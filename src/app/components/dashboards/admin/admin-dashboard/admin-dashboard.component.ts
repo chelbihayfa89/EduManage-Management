@@ -9,6 +9,7 @@ import { jwtDecode } from 'jwt-decode';
 import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { StudentService } from 'src/app/services/student/student.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { JwtPayload } from 'src/app/models/jwt-payload.model';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -19,21 +20,25 @@ export class AdminDashboardComponent implements OnInit {
   courses: Course[] = [];
   users: User[] = [];
   students: any = [];
-  student: any = {};
-  admin: any;
+  student: { _id?: string } = {};
+  admin: JwtPayload | null = null;
   role: string = '';
+
   coursesCounter: number = 0;
   studentsCounter: number = 0;
   teachersCounter: number = 0;
+
   selectedIndex: number = -1;
-  selectedStudentIndex: number = -1;
   showSelectCourseAffect: boolean = false;
+
   teacherId?: {
-  _id: string;
-  firstName: string;
-  lastName: string;
-};
+    _id: string;
+    firstName: string;
+    lastName: string;
+  };
+
   _id: string = '';
+
   constructor(
     private router: Router,
     private authService: AuthService,
@@ -46,17 +51,20 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit(): void {
     const token = sessionStorage.getItem('token');
     if (token) {
-      const decoded = jwtDecode(token);
-      this.admin = decoded;
-      this.role = this.admin.role;
+      this.admin = jwtDecode<JwtPayload>(token);
+      this.role = this.admin.role || "";
     }
+
     this.dashboardService.getDashboard(this.role).subscribe({
       next: (data) => {
         console.log(data.message);
       },
+      error: (err) => {
+        console.log(err.message);
+      },
     });
-    this.getStudents();
 
+    this.getStudents();
     this.getCourses();
     this.getUsers();
   }
@@ -64,9 +72,11 @@ export class AdminDashboardComponent implements OnInit {
   goToCourseInfo(id: string) {
     this.router.navigate(['/course', id]);
   }
+
   goToEditCourse(id: string) {
     this.router.navigate(['/admin/editCourse', id]);
   }
+
   deleteCourse(id: string) {
     Swal.fire({
       title: 'Are you sure?',
@@ -91,6 +101,7 @@ export class AdminDashboardComponent implements OnInit {
       }
     });
   }
+
   getCourses() {
     this.courseService.getCourses().subscribe({
       next: (data) => {
@@ -145,7 +156,7 @@ export class AdminDashboardComponent implements OnInit {
                 text: 'Your file has been deleted.',
                 icon: 'success',
               });
-              this.getUsers();
+              this.users = this.users.filter((u) => u._id !== id);
             }
           },
           error: () => {},
@@ -162,38 +173,50 @@ export class AdminDashboardComponent implements OnInit {
           (u) => u.role == 'teacher',
         ).length;
       },
-      error: () => {},
+      error: (err) => {
+        console.log(err.message);
+      },
     });
-  }
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/']);
   }
 
   selectCourse(i: number) {
     this.selectedIndex = i;
   }
+
   affecStudentToCourse() {
-    if (this.selectedIndex < 0) return; // rien n'est sélectionné
+    if (this.selectedIndex < 0) return;
     let courseId = this.courses[this.selectedIndex]._id;
     if (!courseId) {
       return;
     }
     console.log(this.student);
     console.log(courseId);
-    this.courseService.affectStudentToCourse(courseId, {student: this.student}).subscribe({
-      next: (res) => {
-        console.log(res.message);
-      },
-    });
+    this.courseService
+      .affectStudentToCourse(courseId, { student: this.student })
+      .subscribe({
+        next: (res) => {
+          console.log(res.message);
+        },
+        error: (err) => {
+          console.log(err.message);
+        },
+      });
   }
   getStudents() {
     this.studentService.getStudents().subscribe({
       next: (data) => {
         if (data.students) {
           this.students = data.students;
+          this.studentsCounter = this.students.length;
         }
       },
+      error: (err) => {
+        console.log(err.message);
+      },
     });
+  }
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }

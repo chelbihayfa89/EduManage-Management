@@ -13,7 +13,7 @@ const register = (req, res) => {
     bcrypt.hash(req.body.password, 10).then((hashedPassword) => {
       req.body.password = hashedPassword;
       const user = new User(req.body);
-      console.log(hashedPassword);
+      
       user
         .save()
         .then((doc) => {

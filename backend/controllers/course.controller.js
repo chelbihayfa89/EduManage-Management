@@ -1,5 +1,8 @@
+const mongoose = require('mongoose');
+
 const Course = require("../models/course.model");
 const User = require("../models/user.model");
+
 
 const getCourses = (req, res) => {
   if (req.user == null) {
@@ -157,7 +160,6 @@ const getTeacherCourses = (req, res) => {
     .populate("teacherId", "firstName lastName")
     .populate("studentsIds", "firstName lastName")
     .then((foundCourses) => {
-      console.log("Courses trouvées:", foundCourses);
       if (foundCourses.length > 0) {
         return res.status(200).json({ foundCourses });
       }
@@ -176,21 +178,17 @@ const affectStudentToCourse = (req, res) => {
     return res.status(400).json({ message: "Student ID is required" });
   }
 
-  // Vérifier que le cours existe
   Course.findById(courseId)
     .then((course) => {
       if (!course) {
         return res.status(404).json({ message: "No course found" });
       }
-
-      // Vérifier que l'étudiant existe
       User.findById(studentId)
         .then((student) => {
           if (!student) {
             return res.status(404).json({ message: "No student found" });
           }
 
-          // Ajouter l'étudiant au cours (évite les doublons)
           course
             .updateOne({ $addToSet: { studentsIds: studentId } })
             .then(() => {
@@ -217,6 +215,23 @@ const affectStudentToCourse = (req, res) => {
     });
 };
 
+const getCoursesByStudent = (req, res) => {
+  const studentObjectId = new mongoose.Types.ObjectId(req.user._id);
+  
+  Course.find({ studentsIds: studentObjectId })
+    .then((existingCourses) => {
+      if (!existingCourses || existingCourses.length === 0) {
+        return res.status(404).json({ message: "No course found" });
+      }
+      return res.status(200).json({ courses: existingCourses });
+    })
+    .catch((err) => {
+      return res
+        .status(500)
+        .json({ message: "Error server", error: err.message });
+    });
+};
+
 module.exports = {
   getCourses,
   getCourseById,
@@ -225,4 +240,5 @@ module.exports = {
   addCourse,
   getTeacherCourses,
   affectStudentToCourse,
+  getCoursesByStudent,
 };

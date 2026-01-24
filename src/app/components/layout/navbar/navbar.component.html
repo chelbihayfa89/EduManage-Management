@@ -1,52 +1,73 @@
 <div class="container-fluid bg-light position-relative shadow">
-      <nav
-        class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5"
-      >
-        <a
-          href=""
-          class="navbar-brand font-weight-bold text-secondary"
-          style="font-size: 50px"
+  <nav
+    class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-0 px-lg-5"
+  >
+    <a
+      href=""
+      class="navbar-brand font-weight-bold text-secondary"
+      style="font-size: 50px"
+    >
+      <i class="flaticon-033-blocks mr-2"></i>
+      <span class="text-primary">EduManage</span>
+    </a>
+    <button
+      type="button"
+      class="navbar-toggler"
+      data-toggle="collapse"
+      data-target="#navbarCollapse"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <!-- MENU PUBLIC (CENTRE) -->
+      <div class="navbar-nav mx-auto font-weight-bold">
+        <a routerLink="/" class="nav-item nav-link">Home</a>
+        <a routerLink="/about" class="nav-item nav-link">About</a>
+        <a routerLink="/courses" class="nav-item nav-link">Courses</a>
+        <a routerLink="/teachers" class="nav-item nav-link">Teachers</a>
+        <a routerLink="/search-teachers" class="nav-item nav-link"
+          >Search Teacher</a
         >
-          <i class="flaticon-033-blocks mr-2"></i>
-          <span class="text-primary">EduManage</span>
-        </a>
-        <button
-          type="button"
-          class="navbar-toggler"
-          data-toggle="collapse"
-          data-target="#navbarCollapse"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div
-          class="collapse navbar-collapse justify-content-between"
-          id="navbarCollapse"
-        >
-          <div class="navbar-nav font-weight-bold mx-auto py-0">
-            <a routerLink="" class="nav-item nav-link active" routerLinkActive="active">Home</a>
-            <a routerLink="/about" class="nav-item nav-link" routerLinkActive="active">About</a>
-            <a routerLink="/courses" class="nav-item nav-link" routerLinkActive="active">Courses</a>
-            <a routerLink="/teachers" class="nav-item nav-link" routerLinkActive="active">Teachers</a>
-            <a routerLink="/search-teachers" class="nav-item nav-link">Search Teacher</a>
-            <a routerLink="/contact" class="nav-item nav-link">Contact</a>
-            <div class="nav-item dropdown" *ngIf="!user">
-              <a
-                href="#"
-                class="nav-link dropdown-toggle"
-                data-toggle="dropdown"
-                >Register</a
+        <a routerLink="/contact" class="nav-item nav-link">Contact</a>
+      </div>
+
+      <!-- AUTH / USER (DROITE) -->
+      <div class="navbar-nav ml-auto font-weight-bold">
+        <!-- NON CONNECTÉ -->
+        <ng-container *ngIf="!isLoggedIn">
+          <a routerLink="/login" class="nav-item nav-link">Login</a>
+
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+              Register
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a routerLink="/register/student" class="dropdown-item"
+                >Student</a
               >
-              <div class="dropdown-menu rounded-0 m-0">
-                <a routerLink="/register/student" class="dropdown-item">Student</a>
-                <a routerLink ="/register/teacher" class="dropdown-item">Teacher</a>
-                <a routerLink ="/register/parent" class="dropdown-item">Parent</a>
-              </div>
+              <a routerLink="/register/teacher" class="dropdown-item"
+                >Teacher</a
+              >
+              <a routerLink="/register/parent" class="dropdown-item">Parent</a>
             </div>
-            <a *ngIf="!user" routerLink="/login" class="nav-item nav-link">Login</a>
-            <a *ngIf="user?._id" class="nav-item nav-link">Welcome {{user?.firstName}} {{user?.lastName}}</a>
-            <a *ngIf="user?._id" class="nav-item nav-link">Dashboard</a>
-            <a *ngIf="user?._id" class="nav-item nav-link">Logout</a>
           </div>
-        </div>
-      </nav>
+        </ng-container>
+
+        <!-- CONNECTÉ -->
+        <ng-container *ngIf="isLoggedIn">
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown">
+              {{ user?.firstName }}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item" [routerLink]="getDashboardLink()"
+                >Dashboard</a
+              >
+              <a class="dropdown-item" (click)="logout()">Logout</a>
+            </div>
+          </div>
+        </ng-container>
+      </div>
     </div>
+  </nav>
+</div>
