@@ -23,11 +23,11 @@ export class AddCourseByAdminComponent implements OnInit {
   ngOnInit(): void {
     this.teacherService.getAllTeachers().subscribe({
       next: (data) => {
-        this.teachers = data.foundUsers;
+        this.teachers = data.teachers;
       },
     });
   }
-  addCourse(f: any) {
+  addCourse(f: any):void {
     console.log(this.course);
     this.courseService.addCourse(this.course).subscribe({
       next: (data) => {

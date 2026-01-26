@@ -1,1 +1,131 @@
-<p>contact works!</p>
+<div *ngIf="showBanner">
+  <app-banner [t]="title"></app-banner>
+</div>
+
+<div class="container-fluid pt-5">
+  <div class="container">
+    <!-- Section title -->
+    <div class="text-center pb-2">
+      <p class="section-title px-5">
+        <span class="px-2">Get In Touch</span>
+      </p>
+      <h1 class="mb-4">Contact Us for Any Inquiry</h1>
+    </div>
+
+    <div class="row">
+      <!-- Contact form -->
+      <div class="col-lg-7 mb-5">
+        <div class="contact-form">
+          <div id="success"></div>
+          <form name="sentMessage" id="contactForm" novalidate="novalidate">
+            <div class="control-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                placeholder="Your Name"
+                required
+                data-validation-required-message="Please enter your name"
+              />
+              <p class="help-block text-danger"></p>
+            </div>
+
+            <div class="control-group mb-3">
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="Your Email"
+                required
+                data-validation-required-message="Please enter your email"
+              />
+              <p class="help-block text-danger"></p>
+            </div>
+
+            <div class="control-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="subject"
+                placeholder="Subject"
+                required
+                data-validation-required-message="Please enter a subject"
+              />
+              <p class="help-block text-danger"></p>
+            </div>
+
+            <div class="control-group mb-3">
+              <textarea
+                class="form-control"
+                rows="6"
+                id="message"
+                placeholder="Message"
+                required
+                data-validation-required-message="Please enter your message"
+              ></textarea>
+              <p class="help-block text-danger"></p>
+            </div>
+
+            <div>
+              <button
+                class="btn btn-primary py-2 px-4"
+                type="submit"
+                id="sendMessageButton"
+              >
+                Send Message
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Contact information -->
+      <div class="col-lg-5 mb-5">
+        <p>
+          Have a question or need assistance? Contact us using the form, by email, or by phone. We are here to help!
+        </p>
+
+        <div class="d-flex mb-3">
+          <i class="fa fa-map-marker-alt d-inline-flex align-items-center justify-content-center bg-primary text-secondary rounded-circle" style="width: 45px; height: 45px"></i>
+          <div class="pl-3">
+            <h5>Address</h5>
+            <p>10 Avenue Habib Bourguiba, Tunis, Tunisia</p>
+          </div>
+        </div>
+
+        <div class="d-flex mb-3">
+          <i class="fa fa-envelope d-inline-flex align-items-center justify-content-center bg-primary text-secondary rounded-circle" style="width: 45px; height: 45px"></i>
+          <div class="pl-3">
+            <h5>Email</h5>
+            <p>contact@myproject.com</p>
+          </div>
+        </div>
+
+        <div class="d-flex mb-3">
+          <i class="fa fa-phone-alt d-inline-flex align-items-center justify-content-center bg-primary text-secondary rounded-circle" style="width: 45px; height: 45px"></i>
+          <div class="pl-3">
+            <h5>Phone</h5>
+            <p>+216 71 234 567</p>
+          </div>
+        </div>
+
+        <div class="d-flex mb-3">
+          <i class="far fa-clock d-inline-flex align-items-center justify-content-center bg-primary text-secondary rounded-circle" style="width: 45px; height: 45px"></i>
+          <div class="pl-3">
+            <h5>Opening Hours</h5>
+            <strong>Monday - Friday:</strong>
+            <p class="m-0">09:00 - 18:00</p>
+          </div>
+        </div>
+
+        <!-- Google Maps iframe -->
+        <div class="mt-4">
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.123456789!2d10.123456!3d36.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12f34abcd56789%3A0xabcdef123456789!2sTunis%2C%20Tunisia!5e0!3m2!1sen!2sus!4v1234567890" 
+            width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

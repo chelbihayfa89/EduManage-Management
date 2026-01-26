@@ -27,7 +27,7 @@ export class EditCourseByTeacherComponent implements OnInit {
       }
     });
   }
-  editCourse(f: any) {
+  editCourse(f: any):any {
     if (f.invalid) {
       return;
     }

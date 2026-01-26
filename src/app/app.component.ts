@@ -18,4 +18,7 @@ export class AppComponent {
   isStudentDashboard():boolean {
     return this.router.url.startsWith('/dashboard/student');
   }
+  isParentDashboard():boolean {
+    return this.router.url.startsWith('/dashboard/parent');
+  }
 }

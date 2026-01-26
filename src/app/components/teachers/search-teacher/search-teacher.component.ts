@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class SearchTeacherComponent implements OnInit {
   showBanner: boolean = true;
   @Input() title: string = 'Search Teacher';
-  criteria: any = {};
+  criteria = {speciality: ''};
   specialities: string[] = [
     'Mathematics',
     'Physics',

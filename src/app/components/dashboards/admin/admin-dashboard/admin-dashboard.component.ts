@@ -215,7 +215,7 @@ export class AdminDashboardComponent implements OnInit {
       },
     });
   }
-  logout() {
+  logout():void {
     this.authService.logout();
     this.router.navigate(['/']);
   }

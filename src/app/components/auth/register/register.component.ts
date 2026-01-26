@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
   title: string = 'Sign-Up';
   role: string = '';
   emailErrMsg: string="";
+  childPhoneErrMsg: string="";
   specialities: string[] = [
     'Mathematics',
     'Physics',
@@ -97,6 +98,9 @@ export class RegisterComponent implements OnInit {
         console.log(err);
         if (err.status === 409) {
           this.emailErrMsg = 'cet email existe deja ';
+        }
+        if (err.status === 400) {
+          this.childPhoneErrMsg = err.error.message;
         }
       },
     });

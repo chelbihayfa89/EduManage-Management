@@ -1,1 +1,159 @@
-<p>parent-dashboard works!</p>
+<div class="d-flex wrapper">
+  <!-- Side bar-->
+  <div class="sidebar side bg-white text-primary shadow p-3">
+    <div class="d-flex align-items-center">
+      <img
+        src="assets/template/img/team-2.jpg"
+        alt="Profil"
+        class="rounded-circle"
+        style="
+          width: 50px;
+          height: 50px;
+          object-fit: cover;
+          border: 3px solid gray;
+        "
+      />
+      <h5 class="mb-0 ml-2">{{ parent?.firstName }} {{ parent?.lastName }}</h5>
+    </div>
+    <ul class="nav flex-column navitem w-100 mt-4">
+      <li class="nav-item mb-3">
+        <a
+          routerLink="/"
+          class="d-flex align-items-center active"
+          style="gap: 6px"
+        >
+          <i class="fas fa-home text-primary"></i>
+          <span>Home</span>
+        </a>
+      </li>
+      <li class="nav-item mb-3">
+        <a
+          routerLink="/user/profile"
+          class="d-flex align-items-center side-gap"
+        >
+          <i class="fas fa-user text-primary"></i>
+          <span>Profile</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Main content-->
+  <div class="content main w-100">
+    <!--Navbar-->
+    <nav
+      class="navbar bg-light border-bottom shadow-sm d-flex justify-content-between"
+      style="border-color: #dee2e6"
+    >
+      <h3>Dashboard</h3>
+      <a class="d-flex align-items-center log-out" (click)="logout()">
+        <i class="fas fa-sign-out-alt text-primary"></i>
+        <span>Logout</span>
+      </a>
+    </nav>
+
+    <div class="container mt-5">
+      <div class="row d-flex justify-content-center">
+        <div class="col-12 col-md-6">
+          <form #searchForm="ngForm" (ngSubmit)="search()">
+            <div class="form-group">
+              <input
+                type="tel"
+                class="form-control w-100"
+                placeholder="Enter your child's phone number"
+                name="childPhone"
+                [(ngModel)]="criteria.childPhone"
+                #childPhone="ngModel"
+                required
+              />
+              <div
+                *ngIf="
+                  childPhone.invalid && (childPhone.dirty || childPhone.touched)
+                "
+              >
+                <span
+                  *ngIf="childPhone.errors?.['required']"
+                  class="text-danger mt-1 mb-2 d-block"
+                >
+                  <i class="fas fa-exclamation-triangle text-warning mr-2"></i
+                  >Please enter your child's phone number</span
+                >
+              </div>
+            </div>
+            <div>
+              <button
+                class="btn btn-secondary btn-block border-0 py-3 mt-3"
+                type="submit"
+              >
+                <i class="fas fa-search mr-2"></i>View courses & evaluations
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+          <div class="row">
+            <!-- Liste des cours à gauche -->
+            <div class="card col-12 shadow-sm">
+              <div class="card-body d-flex">
+                <div class="col-md-5">
+                  <!-- Liste des cours à gauche -->
+                  <ul class="list-group">
+                    <li class="list-group-item list-group-item-action">
+                      <i class="fas fa-book mr-2 text-info"></i>
+                      <span>course.name</span>
+                      <br />
+                      <small>course.description</small>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Affichage de la note à droite -->
+                <div class="col-lg-5 col-md-6 pb-1">
+                  <div
+                    class="card text-body shadow-sm"
+                    style="border-radius: 35px"
+                  >
+                    <div class="card-body p-4">
+                      <div class="d-flex flex-column text-center mt-1 mb-4">
+                        <h2 class="mb-0 fw-bold">Note & Evaluation</h2>
+                      </div>
+
+                      <div>
+                        <div class="d-flex align-items-center">
+                          <div class="flex-grow-1" style="font-size: 1rem">
+                            <div
+                              class="d-flex justify-content-center"
+                              class="display-3"
+                            >
+                              <span> note</span>
+                              <span> / 20</span>
+                            </div>
+                            <hr
+                              style="
+                                border: none;
+                                background-color: #6c757d;
+                                height: 3px;
+                              "
+                            />
+                            <div>
+                              <p class="text-center display-5">evaluation</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <p class="text-center"><em>Not yet graded</em></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

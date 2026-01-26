@@ -10,8 +10,8 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class LoginComponent implements OnInit {
   loginData: any = { phone: '', password: '' };
-  errMsg!: string;
-  role!: string;
+  errMsg: string = "";
+  role: string ="";
 
   constructor(
     private authService: AuthService,
@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  login() {
+  login():void {
     this.authService.login(this.loginData).subscribe({
       next: (res) => {
         if (res.message === 'Login successful') {

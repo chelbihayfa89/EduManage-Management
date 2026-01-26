@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const Course = require("../models/course.model");
 const User = require("../models/user.model");
-
+const Note = require("../models/note.model");
 
 const getCourses = (req, res) => {
   if (req.user == null) {
@@ -49,48 +49,46 @@ const deleteCourseById = (req, res) => {
   const role = req.user.role;
   const courseId = req.params.id;
 
-  // 1️⃣ Chercher le course
   Course.findById(courseId)
     .then((foundCourse) => {
       if (!foundCourse) {
         return res.status(404).json({ message: "No course found" });
       }
 
-      // 2️⃣ Admin → suppression directe
-      if (role === "admin") {
-        return Course.deleteOne({ _id: courseId }).then((deleteResponse) => {
-          if (deleteResponse.deletedCount === 1) {
-            return res
-              .status(200)
-              .json({ message: "Course deleted successfully" });
-          } else {
-            return res.status(500).json({ message: "Deletion failed" });
-          }
+      if (role === "admin" || foundCourse.teacherId.toString() === userId) {
+        Note.deleteMany({ courseId: courseId }).then(() => {
+          return Course.deleteOne({ _id: courseId })
+            .then((deleteResponse) => {
+              if (deleteResponse.deletedCount === 1) {
+                return res
+                  .status(200)
+                  .json({ message: "Course deleted successfully" });
+              } else {
+                return res
+                  .status(500)
+                  .json({ message: "Course deletion failed" });
+              }
+            })
+            .catch((error) => {
+              // 5️⃣ Gestion des erreurs (notes ou cours)
+              return res.status(500).json({
+                message: "Error deleting course or notes",
+                error: error.message,
+              });
+            });
         });
+      } else if (role === "teacher") {
+        // Teacher qui ne possède pas le cours
+        return res.status(401).json({ message: "Unauthorized" });
+      } else {
+        // Autres rôles
+        return res.status(403).json({ message: "Forbidden" });
       }
-
-      // 3️⃣ Teacher → ne peut supprimer que ses propres cours
-      if (role === "teacher") {
-        if (foundCourse.teacherId.toString() === userId) {
-          return Course.deleteOne({ _id: courseId }).then((deleteResponse) => {
-            if (deleteResponse.deletedCount === 1) {
-              return res
-                .status(200)
-                .json({ message: "Course deleted successfully" });
-            } else {
-              return res.status(500).json({ message: "Deletion failed" });
-            }
-          });
-        } else {
-          return res.status(401).json({ message: "Unauthorized" });
-        }
-      }
-
-      // 4️⃣ Autres rôles → Forbidden
-      return res.status(403).json({ message: "Forbidden" });
     })
     .catch((error) => {
-      res.status(500).json({ message: "Server error", error: error.message });
+      return res
+        .status(500)
+        .json({ message: "Server error", error: error.message });
     });
 };
 
@@ -217,7 +215,7 @@ const affectStudentToCourse = (req, res) => {
 
 const getCoursesByStudent = (req, res) => {
   const studentObjectId = new mongoose.Types.ObjectId(req.user._id);
-  
+
   Course.find({ studentsIds: studentObjectId })
     .then((existingCourses) => {
       if (!existingCourses || existingCourses.length === 0) {

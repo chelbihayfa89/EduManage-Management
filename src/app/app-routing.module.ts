@@ -19,6 +19,9 @@ import { AddCourseByTeacherComponent } from './components/courses/add-course-by-
 import { AddCourseByAdminComponent } from './components/courses/add-course-by-admin/add-course-by-admin.component';
 import { AddNoteComponent } from './components/notes/add-note/add-note.component';
 import { StudentDashboardComponent } from './components/dashboards/student/student-dashboard/student-dashboard.component';
+import { AddScpecialityComponent } from './components/specialities/add-speciality/add-scpeciality.component';
+import { ListSpecialityComponent } from './components/specialities/list-speciality/list-speciality.component';
+import { ParentDashboardComponent } from './components/dashboards/parent/parent-dashboard/parent-dashboard.component';
 
 const routes: Routes = [
   {
@@ -61,6 +64,18 @@ const routes: Routes = [
     data: { role: 'admin' },
   },
   { path: 'admin/editCourse/:id', component: EditCourseByAdminComponent },
+  {
+    path: 'admin/specialities',
+    component: ListSpecialityComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'student' },
+  },
+  {
+    path: 'admin/addSpeciality',
+    component: AddScpecialityComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'student' },
+  },
   { path: 'user/:id', component: UserInfoComponent },
   {
     path: 'notes/add',
@@ -73,6 +88,12 @@ const routes: Routes = [
     component: StudentDashboardComponent,
     canActivate: [AuthGuard],
     data: { role: 'student' },
+  },
+  {
+    path: 'dashboard/parent',
+    component: ParentDashboardComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'parent' },
   },
 ];
 

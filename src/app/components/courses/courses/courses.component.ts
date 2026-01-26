@@ -10,19 +10,20 @@ import { CourseService } from 'src/app/services/course/course.service';
 export class CoursesComponent implements OnInit {
   title: string = 'Our Courses';
   @Input() showBanner: boolean = true;
+  @Input() limit: number = 0;
   courses!: Course[];
   constructor(private courseService: CourseService) {}
 
   ngOnInit(): void {
     this.courseService.getCourses().subscribe({
       next: (res) => {
-        if (res.courses) {
-          this.courses = res.courses;
-          console.log(res.courses);
+        this.courses = res.courses;
+        if (this.limit) {
+          this.courses = this.courses.slice(0, this.limit);
         }
       },
       error: (err) => {
-        console.log(err.message);
+        console.error(err.error.message);
       },
     });
   }

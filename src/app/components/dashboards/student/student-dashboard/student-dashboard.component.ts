@@ -38,26 +38,31 @@ export class StudentDashboardComponent implements OnInit {
           this.courses = res.courses;
         }
       },
-    });
-  }
-
-  selecteCourse(i: number) {
-    this.selectedCourseIndex = i;
-    console.log(this.selectedCourseIndex);
-    this.selectedCourse = this.courses
-      ? this.courses[this.selectedCourseIndex]
-      : null;
-    console.log(this.selectedCourse?._id);
-    this.noteService.getCourseNote(this.selectedCourse?._id!).subscribe({
-      next: (res) => {
-        this.note = res.note;
+      error: (err) => {
+        console.error(err.error.message);
       },
     });
   }
 
-  logout() {
-    this.authService.logout();
-    this.router.navigate(['/']);
+  selecteCourse(i: number): void {
+    this.selectedCourseIndex = i;
+
+    this.selectedCourse = this.courses
+      ? this.courses[this.selectedCourseIndex]
+      : null;
+
+    if (!this.selectedCourse?._id) {
+      return;
+    }
+
+    this.noteService.getCourseNote(this.selectedCourse._id).subscribe({
+      next: (res) => {
+        this.note = res.note;
+      },
+      error: (err) => {
+        console.error(err.error.message);
+      },
+    });
   }
 
   getNoteClass(note: number | undefined): string {
@@ -70,5 +75,10 @@ export class StudentDashboardComponent implements OnInit {
       return 'note-medium';
     }
     return 'note-low';
+  }
+
+  logout(): void {
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }

@@ -247,6 +247,11 @@
                   </small>
                 </div>
               </div>
+              <div *ngIf="childPhoneErrMsg">
+              <small>
+                <i class="fas fa-exclamation-triangle text-danger mr-2">{{childPhoneErrMsg}}</i>
+              </small>
+            </div>
             </div>
 
             <!-- Teacher Fields -->

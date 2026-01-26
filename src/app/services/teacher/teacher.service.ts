@@ -11,27 +11,25 @@ export class TeacherService {
   constructor(private http: HttpClient) {}
 
   getAllTeachers() {
-    return this.http.get<{message: string, foundUsers: any}>(`${this.apiUrl}/all`);
+    return this.http.get<{ message: string; teachers: Teacher[] }>(
+      `${this.apiUrl}/all`,
+    );
   }
 
-  getTeachers(speciality?: string) {
+  getTeachersBySpeciality(speciality?: string) {
     return speciality
-      ? this.http.get<{ teachers: any }>(
+      ? this.http.get<{ message: string; teachers: Teacher[] }>(
           `${this.apiUrl}?speciality=${speciality}`,
         )
-      : this.http.get<{ teachers: any }>(this.apiUrl);
+      : this.http.get<{ teachers: Teacher[]}>(this.apiUrl);
   }
 
   getTeacherById(id: number) {
     return this.http.get(`${this.apiUrl}/${id}`);
   }
 
-  addTeacher(teacher: any) {
+  addTeacher(teacher: Teacher) {
     return this.http.post(this.apiUrl, teacher);
-  }
-
-  updateTeacher(teacher: any) {
-    return this.http.put(this.apiUrl, teacher);
   }
 
   deleteTeacherById(id: number) {
