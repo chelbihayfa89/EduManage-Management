@@ -24,6 +24,11 @@ export class NoteService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-    return this.http.get<{message: string, note: Note}>(`${this.apiUrl}/course/${courseId}`, { headers });
+    return this.http.get<{ message: string; note: Note }>(
+      `${this.apiUrl}/course/${courseId}`,
+      { headers },
+    );
   }
+
+  getCourseNoteForParent() {}
 }

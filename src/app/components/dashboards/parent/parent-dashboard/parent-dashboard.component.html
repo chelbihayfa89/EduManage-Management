@@ -100,11 +100,11 @@
                 <div class="col-md-5">
                   <!-- Liste des cours à gauche -->
                   <ul class="list-group">
-                    <li class="list-group-item list-group-item-action">
+                    <li *ngFor="let c of courses; let i = index" class="list-group-item list-group-item-action" 
+                    [class.active]="i === selectedCourseIndex" (click)="selectCourse(i)">
                       <i class="fas fa-book mr-2 text-info"></i>
-                      <span>course.name</span>
+                      <span>{{c.name}}</span>
                       <br />
-                      <small>course.description</small>
                     </li>
                   </ul>
                 </div>
@@ -113,38 +113,33 @@
                 <div class="col-lg-5 col-md-6 pb-1">
                   <div
                     class="card text-body shadow-sm"
-                    style="border-radius: 35px"
+                    style="border-radius: 20px"
                   >
                     <div class="card-body p-4">
                       <div class="d-flex flex-column text-center mt-1 mb-4">
                         <h2 class="mb-0 fw-bold">Note & Evaluation</h2>
                       </div>
 
-                      <div>
+                      <div *ngIf="selectedCourse !== null">
                         <div class="d-flex align-items-center">
                           <div class="flex-grow-1" style="font-size: 1rem">
                             <div
-                              class="d-flex justify-content-center"
-                              class="display-3"
+                              class="d-flex justify-content-center display-3"
                             >
-                              <span> note</span>
+                              <span> {{note?.note}}</span>
                               <span> / 20</span>
                             </div>
                             <hr
-                              style="
-                                border: none;
-                                background-color: #6c757d;
-                                height: 3px;
-                              "
+                              style="border: none; background-color: #ececec; height: 3px;"
                             />
                             <div>
-                              <p class="text-center display-5">evaluation</p>
+                              <p class="text-center display-5"></p>
                             </div>
                           </div>
                         </div>
                       </div>
                       <div>
-                        <p class="text-center"><em>Not yet graded</em></p>
+                         <p class="text-center"><em>{{note?.evaluation || 'Not yet graded'}}</em></p>
                       </div>
                     </div>
                   </div>

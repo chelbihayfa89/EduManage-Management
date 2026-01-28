@@ -4,6 +4,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 
 /***************************************************
  * Création de l'application Express
@@ -29,6 +30,8 @@ app.use(
 app.options("*", (req, res) => {
   res.sendStatus(200);
 });
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Routes
 const courseRoutes = require("./routes/course.routes");
 const teacherRoutes = require("./routes/teacher.routes");

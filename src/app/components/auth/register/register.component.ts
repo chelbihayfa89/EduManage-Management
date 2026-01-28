@@ -12,8 +12,9 @@ import Swal from 'sweetalert2';
 export class RegisterComponent implements OnInit {
   title: string = 'Sign-Up';
   role: string = '';
-  emailErrMsg: string="";
-  childPhoneErrMsg: string="";
+  emailErrMsg: string = '';
+  childPhoneErrMsg: string = '';
+  selectedFile: File | null = null;
   specialities: string[] = [
     'Mathematics',
     'Physics',
@@ -33,7 +34,7 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
   ) {}
 
   registerForm = this.fb.group({
@@ -77,9 +78,15 @@ export class RegisterComponent implements OnInit {
   }
   signup() {
     this.registerForm.patchValue({ role: this.role });
-    console.log(this.registerForm.value);
+    const formData = new FormData();
+    Object.keys(this.registerForm.value).forEach((key) => {
+      formData.append(key,  this.registerForm.value[key as keyof typeof this.registerForm.value] as string);
+    });
+    if (this.selectedFile) {
+      formData.append('file', this.selectedFile);
+    }
 
-    this.authService.register(this.registerForm.value).subscribe({
+    this.authService.register(formData).subscribe({
       next: (res) => {
         console.log(res.message);
         Swal.fire({
@@ -90,7 +97,7 @@ export class RegisterComponent implements OnInit {
           timer: 2000,
         }).then((result) => {
           if (result.isConfirmed) {
-           this.router.navigate(['/login']);
+            this.router.navigate(['/login']);
           }
         });
       },
@@ -104,6 +111,13 @@ export class RegisterComponent implements OnInit {
         }
       },
     });
+  }
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      console.log(this.selectedFile);
+    }
   }
   get f() {
     return this.registerForm.controls;

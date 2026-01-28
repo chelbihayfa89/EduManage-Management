@@ -1,51 +1,55 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const generateToken = require("../utils/token");
+const path = require("path");
 
 const register = (req, res) => {
-  // 1️⃣ Vérifier si l'email existe
+  if(req.body.role === "student" && req.file) {
+    req.body.photo = `/uploads/students/${req.file.filename}`;
+  }
+
   User.findOne({ email: req.body.email })
     .then((existingUser) => {
       if (existingUser) {
-        // Email déjà utilisé → renvoyer et arrêter
         res.status(409).json({ message: "User already exists with this email" });
-        return null; // Stopper la chaîne
+        return null;
       }
 
-      // 2️⃣ Si parent, chercher l'enfant
       if (req.body.role === "parent") {
         return User.findOne({ role: "student", phone: req.body.childPhone });
       }
 
-      return null; // Pas parent
+      // Pour student ou teacher, juste continuer
+      return "noChildNeeded"; // marque qu'on continue
     })
     .then((child) => {
-      // Si la réponse précédente a déjà été envoyée, on stop
-      if (child === null && req.body.role !== "parent") return;
-
-      // 3️⃣ Si parent et pas d'enfant trouvé
-      if (req.body.role === "parent" && !child) {
-        res.status(400).json({ message: "No student found with this phone number" });
-        return;
+      // Si parent mais enfant non trouvé
+      if (req.body.role === "parent") {
+        if (!child) {
+          res.status(400).json({ message: "No student found with this phone number" });
+          return null;
+        }
       }
 
-      // 4️⃣ Hasher le mot de passe
-      return bcrypt.hash(req.body.password, 10).then((hashedPassword) => {
-        const userData = { ...req.body, password: hashedPassword };
-        if (child) userData.childId = child._id;
+      // Hash du mot de passe et création de l'utilisateur
+      if (child !== null) {
+        return bcrypt.hash(req.body.password, 10).then((hashedPassword) => {
+          const userData = { ...req.body, password: hashedPassword };
+          if (child && child !== "noChildNeeded") userData.childId = child._id;
 
-        // 5️⃣ Créer et sauvegarder l'utilisateur
-        return new User(userData).save();
-      });
+          return new User(userData).save();
+        });
+      }
     })
     .then((savedUser) => {
-      if (!savedUser) return; // Si réponse déjà envoyée, stop
+      if (!savedUser) return;
       res.status(201).json({ message: "User added with success", user: savedUser });
     })
     .catch((err) => {
       res.status(500).json({ message: "Server error", error: err.message });
     });
 };
+
 
 
 const login = (req, res) => {

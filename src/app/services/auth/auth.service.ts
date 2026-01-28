@@ -15,10 +15,10 @@ export class AuthService {
     );
   }
 
-  register(user: any) {
+  register(formData: FormData) {
     return this.http.post<{ message: string; user: any }>(
       `${this.apiUrl}/register`,
-      user,
+      formData,
     );
   }
   logout() {
