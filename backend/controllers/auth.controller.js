@@ -4,14 +4,22 @@ const generateToken = require("../utils/token");
 const path = require("path");
 
 const register = (req, res) => {
-  if(req.body.role === "student" && req.file) {
+  if (req.body.role === "student" && req.file) {
     req.body.photo = `/uploads/students/${req.file.filename}`;
+  }
+  else {
+    req.body.photo = 'assets/template/img/avatar.png';
+  }
+  if (req.body.role === "teacher" && req.file) {
+    req.body.teacherCv = `/uploads/students/${req.file.filename}`;
   }
 
   User.findOne({ email: req.body.email })
     .then((existingUser) => {
       if (existingUser) {
-        res.status(409).json({ message: "User already exists with this email" });
+        res
+          .status(409)
+          .json({ message: "User already exists with this email" });
         return null;
       }
 
@@ -26,7 +34,9 @@ const register = (req, res) => {
       // Si parent mais enfant non trouvé
       if (req.body.role === "parent") {
         if (!child) {
-          res.status(400).json({ message: "No student found with this phone number" });
+          res
+            .status(400)
+            .json({ message: "No student found with this phone number" });
           return null;
         }
       }
@@ -43,14 +53,14 @@ const register = (req, res) => {
     })
     .then((savedUser) => {
       if (!savedUser) return;
-      res.status(201).json({ message: "User added with success", user: savedUser });
+      res
+        .status(201)
+        .json({ message: "User added with success", user: savedUser });
     })
     .catch((err) => {
       res.status(500).json({ message: "Server error", error: err.message });
     });
 };
-
-
 
 const login = (req, res) => {
   const { phone, password } = req.body;

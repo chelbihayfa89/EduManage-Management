@@ -3,7 +3,7 @@
   <div class="sidebar side bg-white text-primary shadow p-3">
     <div class="d-flex align-items-center">
       <img
-        src="assets/template/img/avatar.png"
+      [src]="student?.photo ? 'http://localhost:3000' + student?.photo : 'assets/template/img/avatar.png'"
         alt="Photo de profil"
         class="rounded-circle img-fluid"
         style="

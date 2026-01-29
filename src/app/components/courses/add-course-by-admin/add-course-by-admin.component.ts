@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Course } from 'src/app/models/course.model';
 import { Teacher } from 'src/app/models/teacher.model';
 import { CourseService } from 'src/app/services/course/course.service';
@@ -27,7 +28,7 @@ export class AddCourseByAdminComponent implements OnInit {
       },
     });
   }
-  addCourse(f: any):void {
+  addCourse(f: NgForm):void {
     console.log(this.course);
     this.courseService.addCourse(this.course).subscribe({
       next: (data) => {

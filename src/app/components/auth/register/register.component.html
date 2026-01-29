@@ -268,9 +268,8 @@
                   formControlName="speciality"
                 >
                   <option value="" disabled>Choose Speciality</option>
-                  <option></option>
                   <option [value]="s" *ngFor="let s of specialities">
-                    {{ s }}
+                    {{ s?.name }}
                   </option>
                 </select>
                 <small
@@ -283,6 +282,10 @@
                   <i class="fas fa-exclamation-triangle text-warning mr-2"></i>
                   Please select speciality
                 </small>
+              </div>
+              <div class="mb-3">
+                   <label for="formFileT" class="form-label">Your CV</label>
+                   <input class="form-control" type="file" id="formFileT" (change)="onFileSelected($event)">
               </div>
             </div>
 

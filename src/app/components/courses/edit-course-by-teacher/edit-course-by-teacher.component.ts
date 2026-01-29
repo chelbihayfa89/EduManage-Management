@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/course/course.service';
@@ -27,7 +28,7 @@ export class EditCourseByTeacherComponent implements OnInit {
       }
     });
   }
-  editCourse(f: any):any {
+  editCourse(f: NgForm):any {
     if (f.invalid) {
       return;
     }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { SpecialityService } from 'src/app/services/speciality/speciality.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,25 +16,13 @@ export class RegisterComponent implements OnInit {
   emailErrMsg: string = '';
   childPhoneErrMsg: string = '';
   selectedFile: File | null = null;
-  specialities: string[] = [
-    'Mathematics',
-    'Physics',
-    'Chemistry',
-    'Biology',
-    'English',
-    'History',
-    'Geography',
-    'Computer Science',
-    'Physical Education',
-    'Art',
-    'Music',
-    'Economics',
-  ];
-
+  specialities: {_id: string, name: string}[] = [];
+  
   constructor(
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private authService: AuthService,
+    private specialityService: SpecialityService,
     private router: Router,
   ) {}
 
@@ -59,6 +48,11 @@ export class RegisterComponent implements OnInit {
     speciality: [''],
   });
   ngOnInit(): void {
+    this.specialityService
+      .getSpecialities()
+      .subscribe({ next: (res) => {
+        this.specialities = res.specialities;
+      }, error: () => {} });
     this.role = this.route.snapshot.paramMap.get('role') || '';
     console.log(this.role);
     if (this.role == 'parent') {

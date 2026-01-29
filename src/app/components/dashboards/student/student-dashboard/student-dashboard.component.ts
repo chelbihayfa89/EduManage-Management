@@ -30,6 +30,7 @@ export class StudentDashboardComponent implements OnInit {
     const token = sessionStorage.getItem('token');
     if (token) {
       this.student = jwtDecode<JwtPayload>(token);
+      console.log(this.student);
     }
 
     this.courseService.getCoursesByStudent().subscribe({

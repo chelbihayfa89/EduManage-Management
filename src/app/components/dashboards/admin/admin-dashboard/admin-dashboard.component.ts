@@ -10,6 +10,7 @@ import { DashboardService } from 'src/app/services/dashboard/dashboard.service';
 import { StudentService } from 'src/app/services/student/student.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { JwtPayload } from 'src/app/models/jwt-payload.model';
+import { SpecialityService } from 'src/app/services/speciality/speciality.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -19,6 +20,7 @@ import { JwtPayload } from 'src/app/models/jwt-payload.model';
 export class AdminDashboardComponent implements OnInit {
   courses: Course[] = [];
   users: User[] = [];
+  specialities: { _id: string; name: string }[] = [];
   students: any = [];
   student: { _id?: string } = {};
   admin: JwtPayload | null = null;
@@ -46,13 +48,14 @@ export class AdminDashboardComponent implements OnInit {
     private courseService: CourseService,
     private userService: UserService,
     private studentService: StudentService,
+    private specialityService: SpecialityService,
   ) {}
 
   ngOnInit(): void {
     const token = sessionStorage.getItem('token');
     if (token) {
       this.admin = jwtDecode<JwtPayload>(token);
-      this.role = this.admin.role || "";
+      this.role = this.admin.role || '';
     }
 
     this.dashboardService.getDashboard(this.role).subscribe({
@@ -62,6 +65,13 @@ export class AdminDashboardComponent implements OnInit {
       error: (err) => {
         console.log(err.message);
       },
+    });
+
+    this.specialityService.getSpecialities().subscribe({
+      next: (res) => {
+        this.specialities = res.specialities;
+      },
+      error: () => {},
     });
 
     this.getStudents();
@@ -88,15 +98,22 @@ export class AdminDashboardComponent implements OnInit {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        this.courseService.deleteCourseById(id).subscribe((data) => {
-          if (data.message == 'Course deleted successfully') {
+        this.courseService.deleteCourseById(id).subscribe({
+          next: (res) => {
             Swal.fire({
               title: 'Deleted!',
-              text: 'Your file has been deleted.',
+              text: res.message,
               icon: 'success',
             });
-            this.getCourses();
-          }
+            this.courses = this.courses.filter((c) => c._id !== id);
+          },
+          error: (err) => {
+            Swal.fire({
+              title: 'Error!',
+              text: err.error?.message || 'Something went wrong',
+              icon: 'error',
+            });
+          },
         });
       }
     });
@@ -105,19 +122,15 @@ export class AdminDashboardComponent implements OnInit {
   getCourses() {
     this.courseService.getCourses().subscribe({
       next: (data) => {
-        if (data.courses) {
-          this.courses = data.courses;
-          console.log(this.courses);
-          this.coursesCounter = data.courses.length;
-        } else {
-          console.log(data.message);
-        }
+        this.courses = data.courses || [];
+        this.coursesCounter = data.courses.length;
       },
       error: (err) => {
         console.log(err.message);
       },
     });
   }
+
   validateUser(id: string) {
     console.log(id);
     this.userService.validateUser(id).subscribe({
@@ -149,17 +162,20 @@ export class AdminDashboardComponent implements OnInit {
       if (res.isConfirmed) {
         this.userService.deleteUser(id).subscribe({
           next: (res) => {
-            console.log(res.message);
-            if (res.message === 'User deleted successfully') {
-              Swal.fire({
-                title: 'Deleted!',
-                text: 'Your file has been deleted.',
-                icon: 'success',
-              });
-              this.users = this.users.filter((u) => u._id !== id);
-            }
+            Swal.fire({
+              title: 'Deleted!',
+              text: res.message,
+              icon: 'success',
+            });
+            this.users = this.users.filter((u) => u._id !== id);
           },
-          error: () => {},
+          error: (err) => {
+            Swal.fire({
+              title: 'Error!',
+              text: err.error?.message || 'Something went wrong',
+              icon: 'error',
+            });
+          },
         });
       }
     });
@@ -215,7 +231,12 @@ export class AdminDashboardComponent implements OnInit {
       },
     });
   }
-  logout():void {
+
+  goToEditSpeciality(id: string) {
+    this.router.navigate(['/admin/specialities/edit', id]);
+  }
+  deleteSpeciality(id: string) {}
+  logout(): void {
     this.authService.logout();
     this.router.navigate(['/']);
   }

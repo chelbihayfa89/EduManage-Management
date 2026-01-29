@@ -20,8 +20,8 @@ import { AddCourseByAdminComponent } from './components/courses/add-course-by-ad
 import { AddNoteComponent } from './components/notes/add-note/add-note.component';
 import { StudentDashboardComponent } from './components/dashboards/student/student-dashboard/student-dashboard.component';
 import { AddScpecialityComponent } from './components/specialities/add-speciality/add-scpeciality.component';
-import { ListSpecialityComponent } from './components/specialities/list-speciality/list-speciality.component';
 import { ParentDashboardComponent } from './components/dashboards/parent/parent-dashboard/parent-dashboard.component';
+import { EditSpecialityComponent } from './components/specialities/edit-speciality/edit-speciality/edit-speciality.component';
 
 const routes: Routes = [
   {
@@ -65,16 +65,16 @@ const routes: Routes = [
   },
   { path: 'admin/editCourse/:id', component: EditCourseByAdminComponent },
   {
-    path: 'admin/specialities',
-    component: ListSpecialityComponent,
-    canActivate: [AuthGuard],
-    data: { role: 'student' },
-  },
-  {
-    path: 'admin/addSpeciality',
+    path: 'admin/specialities/add',
     component: AddScpecialityComponent,
     canActivate: [AuthGuard],
-    data: { role: 'student' },
+    data: { role: 'admin' },
+  },
+  {
+    path: 'admin/specialities/edit/:id',
+    component: EditSpecialityComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'admin' },
   },
   { path: 'user/:id', component: UserInfoComponent },
   {

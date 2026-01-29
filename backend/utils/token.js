@@ -10,6 +10,7 @@ const generateToken = (user) => {
       role: user.role,
       firstName: user.firstName,
       lastName: user.lastName,
+      photo: user.photo
     },
     process.env.SECRET_KEY,
     { expiresIn: "3h" }

@@ -40,20 +40,18 @@
           <span>Add Course</span>
         </a>
       </li>
-      <li class="nav-item mb-3">
-        <a
-          routerLink="/admin/specialities"
-          class="d-flex align-items-center side-gap"
-        >
-          <i class="fas fa-layer-group text-primary"></i>
-          <span>Specialities</span>
-        </a>
-      </li>
 
       <li class="nav-item mb-3">
         <a href="#" class="d-flex align-items-center side-gap">
           <i class="fas fa-chalkboard-teacher text-primary"></i>
           <span>Add Class</span>
+        </a>
+      </li>
+
+      <li class="nav-item mb-3">
+        <a routerLink="/admin/specialities/add" class="d-flex align-items-center side-gap">
+          <i class="fas fa-plus text-primary"></i>
+          <span>Add Speciality</span>
         </a>
       </li>
       <li class="nav-item mb-3">
@@ -239,6 +237,7 @@
           </div>
         </div>
       </div>
+
       <!-- Affect Student To Course -->
       <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
@@ -343,6 +342,46 @@
                     <a class="btn btn-sm btn-success" href="#"
                       >Affect Student To Class</a
                     >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spacialities Table -->
+      <div class="row justify-content-center mt-5">
+        <div class="col-md-10">
+          <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+              <thead>
+                <tr>
+                  <th colspan="6" class="text-center bg-primary text-white">
+                    Spacialities
+                  </th>
+                </tr>
+                <tr>
+                  <th>Name</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let s of specialities">
+                  <td>{{ s?.name }}</td>
+                  <td>
+                    <a
+                      class="btn btn-sm btn-outline-success mr-1"
+                      title="Edit"
+                      (click)="goToEditSpeciality(s._id)"
+                      ><i class="fas fa-pen"></i
+                    ></a>
+                    <a
+                      class="btn btn-sm btn-outline-danger mr-1"
+                      title="Delete"
+                      (click)="deleteSpeciality(s._id)"
+                      ><i class="fas fa-trash"></i
+                    ></a>
                   </td>
                 </tr>
               </tbody>

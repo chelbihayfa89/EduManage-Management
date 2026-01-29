@@ -1,4 +1,4 @@
-import { Role } from "./role.type";
+import { Role } from './role.type';
 
 export interface JwtPayload {
   _id?: string;
@@ -7,4 +7,5 @@ export interface JwtPayload {
   role?: Role;
   iat?: number;
   exp?: number;
+  photo?: string;
 }

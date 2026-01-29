@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Course } from 'src/app/models/course.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -42,7 +43,7 @@ export class EditCourseByAdminComponent implements OnInit {
       console.error('Course ID not found in route');
     }
   }
-  editCourse(f: any) {
+  editCourse(f: NgForm) {
     if (f.invalid) {
       return;
     }

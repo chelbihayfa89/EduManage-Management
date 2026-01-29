@@ -6,15 +6,15 @@
   <div class="container">
     <div class="text-center pb-2">
       <p class="section-title px-5">
-        <span class="px-2">Add a New Speciality</span>
+        <span class="px-2">Edit Speciality</span>
       </p>
-      <h1 class="mb-4">Enter the Speciality Name</h1>
+      <h1 class="mb-4">Update the Speciality Name</h1>
     </div>
 
     <div class="row d-flex justify-content-center">
       <div class="col-lg-7 mb-5">
         <div class="contact-form">
-          <form #addSpecialityF="ngForm" (ngSubmit)="addSpeciality(addSpecialityF)">
+          <form #addSpecialityF="ngForm" (ngSubmit)="editSpeciality(addSpecialityF)">
             <!-- Speciality Name -->
             <div class="mb-3">
               <input
@@ -41,7 +41,7 @@
                 type="submit"
                 [disabled]="addSpecialityF.invalid"
               >
-                Add Speciality
+                Edit Speciality 
               </button>
             </div>
           </form>

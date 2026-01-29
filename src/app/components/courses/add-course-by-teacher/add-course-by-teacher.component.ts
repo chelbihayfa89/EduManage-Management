@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/course/course.service';
@@ -16,7 +17,7 @@ export class AddCourseByTeacherComponent implements OnInit {
   constructor(private courseService: CourseService, private router: Router) {}
 
   ngOnInit(): void {}
-  addCourse(addCourseF: any) {
+  addCourse(addCourseF: NgForm) {
     if (addCourseF.invalid) {
       return;
     }

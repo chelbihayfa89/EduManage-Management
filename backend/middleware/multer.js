@@ -33,10 +33,11 @@ const storage = multer.diskStorage({
   },
   filename: (req, file, cb) => {
     const name = file.originalname.toLowerCase().split(" ").join("-");
+    const nameWithoutExt = name.replace(/\.[^/.]+$/, "");
     const extension = MIME_TYPE[file.mimetype];
-    const fileName = name + "-" + Date.now() + "." + extension;
+    const fileName = nameWithoutExt + "-" + Date.now() + "." + extension;
     return cb(null, fileName);
   },
 });
 
-module.exports = multer({ storage: storage }).single('filr');
+module.exports = multer({ storage: storage }).single("file");

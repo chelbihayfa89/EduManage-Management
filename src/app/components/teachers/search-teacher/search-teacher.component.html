@@ -18,8 +18,8 @@
               class="form-select form-select-lg mb-3 w-100 py-2"
             >
               <option value="" selected disabled>-- Select speciality --</option>
-              <option *ngFor="let s of specialities" [value]="s">
-                {{ s }}
+              <option *ngFor="let s of specialities" [value]="s.name">
+                {{ s.name }}
               </option>
             </select>
 
