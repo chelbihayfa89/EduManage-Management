@@ -27,6 +27,32 @@ export class SpecialityService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-    return this.http.get<{speciality: any, message: string}>(`${this.apiUrl}/${id}`, { headers });
+    return this.http.get<{ speciality: any; message: string }>(
+      `${this.apiUrl}/${id}`,
+      { headers },
+    );
+  }
+
+  updateSpecialitty(speciality: { name: string }, id: string) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.patch<{ message: string }>(
+      `${this.apiUrl}/${id}`,
+      speciality,
+      { headers },
+    );
+  }
+
+  deleteSpeciality(id: string) {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+    return this.http.delete<{ message: string }>(
+      `${this.apiUrl}/${id}`,
+      { headers },
+    );
   }
 }

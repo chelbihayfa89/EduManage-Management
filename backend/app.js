@@ -42,6 +42,7 @@ const studentsRoutes = require("./routes/students.routes");
 const noteRoutes = require("./routes/note.routes");
 const parentRoutes = require("./routes/parent.routes");
 const specialityRoutes = require("./routes/speciality.routes");
+const schooClassRoutes = require("./routes/school-class.routes");
 
 /***************************************************
  * Connexion à MongoDB
@@ -67,6 +68,8 @@ app.use("/api/students", studentsRoutes);
 app.use("/api/notes", noteRoutes);
 app.use("/api/parent", parentRoutes);
 app.use("/api/specialities", specialityRoutes);
+app.use("/api/school-classes", schooClassRoutes);
+
 
 /***************************************************
  * Export de l'application

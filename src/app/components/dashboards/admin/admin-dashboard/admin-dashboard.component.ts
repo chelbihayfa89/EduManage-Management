@@ -11,6 +11,8 @@ import { StudentService } from 'src/app/services/student/student.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { JwtPayload } from 'src/app/models/jwt-payload.model';
 import { SpecialityService } from 'src/app/services/speciality/speciality.service';
+import { SchoolClass } from 'src/app/models/school-class.model';
+import { SchoolClassService } from 'src/app/services/school-class/school-class.service';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -25,6 +27,7 @@ export class AdminDashboardComponent implements OnInit {
   student: { _id?: string } = {};
   admin: JwtPayload | null = null;
   role: string = '';
+  schoolClasses: SchoolClass[] = [];
 
   coursesCounter: number = 0;
   studentsCounter: number = 0;
@@ -49,6 +52,7 @@ export class AdminDashboardComponent implements OnInit {
     private userService: UserService,
     private studentService: StudentService,
     private specialityService: SpecialityService,
+    private schoolClassService: SchoolClassService,
   ) {}
 
   ngOnInit(): void {
@@ -72,6 +76,12 @@ export class AdminDashboardComponent implements OnInit {
         this.specialities = res.specialities;
       },
       error: () => {},
+    });
+
+    this.schoolClassService.getSchoolClasses().subscribe({
+      next: (res) => {
+        this.schoolClasses = res.schoolClasses;
+      },
     });
 
     this.getStudents();
@@ -235,7 +245,40 @@ export class AdminDashboardComponent implements OnInit {
   goToEditSpeciality(id: string) {
     this.router.navigate(['/admin/specialities/edit', id]);
   }
-  deleteSpeciality(id: string) {}
+  deleteSpeciality(id: string) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((res) => {
+      if (res.isConfirmed) {
+        this.specialityService.deleteSpeciality(id).subscribe({
+          next: (res) => {
+            Swal.fire({
+              title: 'Deleted!',
+              text: res.message,
+              icon: 'success',
+            });
+            this.specialities = this.specialities.filter((s) => s._id !== id);
+          },
+          error: (err) => {
+            Swal.fire({
+              title: 'Error!',
+              text: err.error?.message || 'Something went wrong',
+              icon: 'error',
+            });
+          },
+        });
+      }
+    });
+  }
+
+  goToEditSchoolClass(id: string) {}
+  deleteSchoolClass(id: string) {}
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/']);

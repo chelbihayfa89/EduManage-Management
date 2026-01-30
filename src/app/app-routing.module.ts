@@ -22,6 +22,7 @@ import { StudentDashboardComponent } from './components/dashboards/student/stude
 import { AddScpecialityComponent } from './components/specialities/add-speciality/add-scpeciality.component';
 import { ParentDashboardComponent } from './components/dashboards/parent/parent-dashboard/parent-dashboard.component';
 import { EditSpecialityComponent } from './components/specialities/edit-speciality/edit-speciality/edit-speciality.component';
+import { AddSchoolClassComponent } from './components/schoolClass/add-school-class/add-school-class/add-school-class.component';
 
 const routes: Routes = [
   {
@@ -95,6 +96,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { role: 'parent' },
   },
+  {path: 'admin/school-class/add', component: AddSchoolClassComponent}
 ];
 
 @NgModule({

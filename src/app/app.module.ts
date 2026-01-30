@@ -37,6 +37,7 @@ import { AddNoteComponent } from './components/notes/add-note/add-note.component
 import { StudentDashboardComponent } from './components/dashboards/student/student-dashboard/student-dashboard.component';
 import { AddScpecialityComponent } from './components/specialities/add-speciality/add-scpeciality.component';
 import { EditSpecialityComponent } from './components/specialities/edit-speciality/edit-speciality/edit-speciality.component';
+import { AddSchoolClassComponent } from './components/schoolClass/add-school-class/add-school-class/add-school-class.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { EditSpecialityComponent } from './components/specialities/edit-speciali
     AddNoteComponent,
     StudentDashboardComponent,
     AddScpecialityComponent,
-    EditSpecialityComponent
+    EditSpecialityComponent,
+    AddSchoolClassComponent
 
 
   ],

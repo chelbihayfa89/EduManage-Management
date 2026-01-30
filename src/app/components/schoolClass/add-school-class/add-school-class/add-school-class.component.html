@@ -1,0 +1,69 @@
+<div *ngIf="showBanner">
+    <app-banner [t]="title"></app-banner>
+</div>
+<div class="container-fluid pt-5">
+  <div class="container">
+    <div class="text-center pb-2">
+      <p class="section-title px-5">
+        <span class="px-2">Add a New Class</span>
+      </p>
+      <h1 class="mb-4">Fill in Class Details</h1>
+    </div>
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-lg-7 mb-5">
+        <div class="contact-form">
+          <form #addClassF="ngForm" (ngSubmit)="addClass(addClassF)">
+            
+            <!-- Nom de la classe -->
+            <div class="control-group">
+              <input
+                type="text"
+                class="form-control"
+                id="cname"
+                name="cname"
+                placeholder="Name"
+                [(ngModel)]="schoolClass.name"
+                #name="ngModel"
+                required
+              />
+              <div *ngIf="name.invalid && (name.dirty || name.touched)" class="text-danger mt-1 mb-2 d-block">
+                <i class="fas fa-exclamation-triangle text-warning mr-2"></i>Class Name is Required!
+              </div>
+            </div>
+
+            <!-- Niveau de la classe -->
+            <div class="control-group mt-3">
+              <input
+                type="text"
+                class="form-control"
+                id="level"
+                name="level"
+                placeholder="Level"
+                #level="ngModel"
+                [(ngModel)]="schoolClass.level"
+                required
+              />
+              <div class="text-danger mt-1 mb-2 d-block" *ngIf="level.invalid && (level.dirty || level.touched)">
+                <i class="fas fa-exclamation-triangle text-warning mr-2"></i>Class Level is Required!
+              </div>
+            </div>
+
+            <!-- Bouton d'ajout -->
+            <div>
+              <button
+                class="btn btn-primary mt-4 w-100"
+                type="submit"
+                id="addClassButton"
+              >
+            Add Class
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
